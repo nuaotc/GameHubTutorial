@@ -1,3 +1,4 @@
+import noImage from "../assets/no-image-placeholder-6f3882e0.webp";
 //url.indexOf('media/') searches for the first occurrence of the string 'media/' in the url.
 //It returns the index (a number) representing the position where 'media/' starts in the url string.
 //If the target substring is not found, it returns -1.
@@ -10,7 +11,7 @@
 //cropping the image to a unified size also helps align the images horizontally and vertically which make the page look clean and tidy and organized in a grid layout
 
 const getCroppedImageUrl = (url: string) => {
-  if (!url) return "";
+  if (!url) return noImage;
   const target = "media/";
   const index = url.indexOf(target) + target.length;
   return url.slice(0, index) + "crop/600/400/" + url.slice(index);
