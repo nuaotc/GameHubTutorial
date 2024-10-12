@@ -22,6 +22,8 @@ const SortSelector = ({ onSelectSortOrder, sortOrder }: Props) => {
     (order) => order.value === sortOrder
   );
 
+  //highlight the current sort selection makes clear to user when they pick another sort order that is different then the current,
+  //as sometimes user can forget what they already viewed/viewing
   return (
     <Menu>
       <MenuButton as={Button} rightIcon={<BsChevronDown />}>
@@ -30,6 +32,9 @@ const SortSelector = ({ onSelectSortOrder, sortOrder }: Props) => {
       <MenuList>
         {sortOrders.map((order) => (
           <MenuItem
+            color={
+              order.label === currentSortOrder?.label ? "blue.300" : "normal"
+            }
             onClick={() => onSelectSortOrder(order.value)}
             key={order.value}
             value={order.value}
