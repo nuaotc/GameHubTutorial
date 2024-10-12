@@ -1,4 +1,13 @@
-import { Box, Grid, GridItem, HStack, Show } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Collapse,
+  Grid,
+  GridItem,
+  Hide,
+  HStack,
+  Show,
+} from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 import GameGrid from "./components/GameGrid";
 import GenreList from "./components/GenreList";
@@ -24,11 +33,13 @@ function App() {
   return (
     <Grid
       templateAreas={{
-        base: `"nav" "main"`,
+        base: `"nav" "aside" "main"`,
+        md: `"nav nav" "aside main"`,
         lg: `"nav nav" "aside main"`, // >1024px
       }}
       templateColumns={{
         base: "1fr",
+        md: "200px 1fr",
         lg: "200px 1fr",
       }}
     >
@@ -37,14 +48,27 @@ function App() {
           onSearch={(searchText) => setGameQuery({ ...gameQuery, searchText })}
         />
       </GridItem>
-      <Show above="lg">
+
+      <Hide below="lg">
         <GridItem area="aside" paddingX={5}>
           <GenreList
+            isCollapse={false}
+            selectedGenre={gameQuery.genre}
+            onSelectGenre={(genre) => setGameQuery({ ...gameQuery, genre })}
+          />
+        </GridItem>
+      </Hide>
+
+      <Show below="lg">
+        <GridItem area="aside" paddingX={5}>
+          <GenreList
+            isCollapse={true}
             selectedGenre={gameQuery.genre}
             onSelectGenre={(genre) => setGameQuery({ ...gameQuery, genre })}
           />
         </GridItem>
       </Show>
+
       <GridItem area="main">
         <Box paddingLeft={2}>
           <GameHeading gameQuery={gameQuery} />

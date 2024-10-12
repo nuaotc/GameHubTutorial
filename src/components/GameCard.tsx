@@ -1,15 +1,28 @@
 import { Game } from "../hooks/useGames";
-import { Card, CardBody, Heading, HStack, Image } from "@chakra-ui/react";
+import {
+  Button,
+  Card,
+  CardBody,
+  Collapse,
+  Heading,
+  HStack,
+  Image,
+} from "@chakra-ui/react";
 import PlatformIconList from "./PlatformIconList";
 import CriticScore from "./CriticScore";
 import getCroppedImageUrl from "../services/image-url";
 import Emoji from "./Emoji";
+import React from "react";
 
 interface Props {
   game: Game;
 }
 
 const GameCard = ({ game }: Props) => {
+  const [show, setShow] = React.useState(false);
+
+  const handleToggle = () => setShow(!show);
+
   //Heading minHeight={100} can make card height same even for longer names
   return (
     <Card>
@@ -21,10 +34,18 @@ const GameCard = ({ game }: Props) => {
           />
           <CriticScore score={game.metacritic} />
         </HStack>
-        <Heading minHeight={100} fontSize="2xl">
-          {game.name}
-        </Heading>
-        <Emoji rating={game.rating_top} />
+
+        <Collapse startingHeight={30} in={show}>
+          <Heading fontSize="2xl">{game.name}</Heading>
+        </Collapse>
+
+        <HStack justifyContent="space-between">
+          <Button size="sm" onClick={handleToggle} mt="1rem">
+            Show {show ? "Less" : "More"}
+          </Button>
+
+          <Emoji rating={game.rating_top} />
+        </HStack>
       </CardBody>
     </Card>
   );
