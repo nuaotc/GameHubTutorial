@@ -40,7 +40,7 @@ function App() {
         />
       </GridItem>
 
-      <Hide below="lg">
+      <Show above="sm">
         <GridItem area="aside" paddingX={5}>
           <GenreList
             isCollapse={false}
@@ -48,9 +48,9 @@ function App() {
             onSelectGenre={(genre) => setGameQuery({ ...gameQuery, genre })}
           />
         </GridItem>
-      </Hide>
+      </Show>
 
-      <Show below="lg">
+      <Hide above="sm">
         <GridItem area="aside" paddingX={5}>
           <GenreList
             isCollapse={true}
@@ -58,7 +58,7 @@ function App() {
             onSelectGenre={(genre) => setGameQuery({ ...gameQuery, genre })}
           />
         </GridItem>
-      </Show>
+      </Hide>
 
       <GridItem area="main">
         <Box paddingLeft={2}>
