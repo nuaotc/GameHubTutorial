@@ -15,6 +15,11 @@ interface Props {
   selectedGenre: Genre | null;
 }
 
+//Dynamically loading the genre list and showing loading indicators can negatively impact the user experience
+//It makes their eyes dart around the page
+//Since the genre don't change, it should be static, and ship with the application
+//no extra request need to send to the server api, the data will be available right away
+
 const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
   const { data, error, isLoading } = useGenres();
 
