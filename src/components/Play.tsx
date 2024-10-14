@@ -1,5 +1,5 @@
 import { Box, Grid, GridItem, Text } from "@chakra-ui/react";
-import { useState } from "react";
+//import { useState } from "react";
 import { MusicGenre } from "./MusicGenreList";
 import { MusicLevel } from "./MusicLevelSelector";
 import ColorModeSwitch from "./ColorModeSwitch";
@@ -12,7 +12,7 @@ export interface MusicQuery {
 }
 
 function Play() {
-  const [musicQuery, setMusicQuery] = useState<MusicQuery>({} as MusicQuery);
+  //const [musicQuery, setMusicQuery] = useState<MusicQuery>({} as MusicQuery);
 
   //to properly align components, wrap them in a parent box or container, change the padding there
   //instead of apply padding to each component, that way when we need to make changes in the future, only need to change one place
