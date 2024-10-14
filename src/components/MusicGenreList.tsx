@@ -100,12 +100,15 @@ const MusicGenreList = ({
     );
 
   return (
+    //first listItem is for showing all genre, user doesn't need to refresh the page or go back to reverse selection
     <>
-      <Button onClick={onToggle}>Genres</Button>
+      <Button marginTop={7} marginBottom={2} onClick={onToggle}>
+        Genres
+      </Button>
       <Collapse in={isOpen} animateOpacity>
         <List>
           <HStack wrap={"wrap"}>
-            <ListItem paddingY="5px">
+            <ListItem>
               <Button
                 fontWeight={selectedGenre ? "normal" : "bold"}
                 color={selectedGenre ? "normal" : "blue.300"}
@@ -116,8 +119,9 @@ const MusicGenreList = ({
                 All
               </Button>
             </ListItem>
+
             {musicGenres.map((genre) => (
-              <ListItem key={genre.id} paddingY="5px">
+              <ListItem key={genre.id}>
                 <Button
                   fontWeight={
                     genre.id === selectedGenre?.id ? "bold" : "normal"

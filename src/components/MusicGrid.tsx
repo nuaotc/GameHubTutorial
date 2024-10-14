@@ -43,10 +43,18 @@ const MusicGrid = ({ musicQuery }: Props) => {
       )
       // Sort the data based on the sortOrder parameter (e.g., 'asc', 'desc')
       .sort((a, b) => {
-        if (musicQuery.sortOrder === "asc") {
+        if (musicQuery.sortOrder === "nameAsc") {
           return a.name.localeCompare(b.name); // Sort alphabetically ascending
-        } else if (musicQuery.sortOrder === "desc") {
+        } else if (musicQuery.sortOrder === "nameDesc") {
           return b.name.localeCompare(a.name); // Sort alphabetically descending
+        } else if (musicQuery.sortOrder === "yearAsc") {
+          return a.year - b.year; // Sort by year ascending
+        } else if (musicQuery.sortOrder === "yearDesc") {
+          return b.year - a.year; // Sort by year descending
+        } else if (musicQuery.sortOrder === "levelAsc") {
+          return a.level - b.level; // Sort by year ascending
+        } else if (musicQuery.sortOrder === "levelDesc") {
+          return b.level - a.level;
         }
         return 0; // Default: no sorting
       });

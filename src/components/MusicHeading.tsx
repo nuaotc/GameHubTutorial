@@ -11,7 +11,14 @@ const MusicHeading = ({ musicQuery }: Props) => {
   ${musicQuery.genre?.name || ""} 
   Music`;
   return (
-    <Heading as="h1" color={"blue.300"} marginY={5} fontSize="5xl">
+    <Heading
+      as="h1"
+      textAlign={{ base: "center", lg: "left" }}
+      color={"blue.300"}
+      marginY={5}
+      fontSize={{ base: "4xl", lg: "5xl" }}
+      width={{ base: "auto", lg: "100%" }}
+    >
       {heading}
     </Heading>
   );

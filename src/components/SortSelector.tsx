@@ -10,12 +10,13 @@ const SortSelector = ({ onSelectSortOrder, sortOrder }: Props) => {
   //sorting order is in ascending by default, adding a hyphen can reverse the order
   //so user always sees the newest, highest item first (descending order)
   const sortOrders = [
-    { value: "", label: "Relevance" },
-    { value: "-added", label: "Date added" },
-    { value: "name", label: "Name" },
-    { value: "-released", label: "Release date" },
-    { value: "-metacritic", label: "Popularity" },
-    { value: "-rating", label: "Average rating" },
+    { value: "", label: "---" },
+    { value: "nameAsc", label: "Name ascending" },
+    { value: "nameDesc", label: "Name descending" },
+    { value: "yearAsc", label: "Release year ascending" },
+    { value: "yearDesc", label: "Release year descending" },
+    { value: "levelAsc", label: "Difficulty ascending" },
+    { value: "levelAsc", label: "Difficulty descending" },
   ];
 
   const currentSortOrder = sortOrders.find(
@@ -27,7 +28,7 @@ const SortSelector = ({ onSelectSortOrder, sortOrder }: Props) => {
   return (
     <Menu>
       <MenuButton as={Button} rightIcon={<BsChevronDown />}>
-        Order by: {currentSortOrder?.label || "Relevance"}
+        Order by: {currentSortOrder?.label || "---"}
       </MenuButton>
       <MenuList>
         {sortOrders.map((order) => (

@@ -41,7 +41,10 @@ const MusicCard = ({ music }: Props) => {
   const handleToggle = () => setShow(!show);
 
   return (
-    <Card>
+    <Card
+      variant={{ base: "outline", md: "filled" }}
+      borderWidth={{ base: "3px", md: "0px" }}
+    >
       <Image src={music.image} alt={music.name} />
       <CardBody>
         <Heading marginBottom={3} fontSize="2xl">

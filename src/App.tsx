@@ -1,5 +1,4 @@
 import { Button, Grid, GridItem } from "@chakra-ui/react";
-import Test from "./components/Home";
 import Browse from "./components/Browse";
 import NavBarMain from "./components/NavBarMain";
 import Play from "./components/Play";

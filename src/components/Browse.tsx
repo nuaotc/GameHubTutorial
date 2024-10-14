@@ -1,11 +1,19 @@
-import { Box, Grid, GridItem, Hide, HStack, Show } from "@chakra-ui/react";
-import NavBar from "./NavBar";
+import {
+  Box,
+  Flex,
+  Grid,
+  GridItem,
+  Hide,
+  HStack,
+  Show,
+} from "@chakra-ui/react";
 import { useState } from "react";
 import MusicGenreList, { MusicGenre } from "./MusicGenreList";
 import SortSelector from "./SortSelector";
 import MusicGrid from "./MusicGrid";
 import MusicLevelSelector, { MusicLevel } from "./MusicLevelSelector";
 import MusicHeading from "./MusicHeading";
+import SearchInput from "./SearchInput";
 
 export interface MusicQuery {
   genre: MusicGenre | null;
@@ -22,26 +30,16 @@ function Browse() {
   return (
     <Grid
       templateAreas={{
-        base: `"nav" "aside" "main"`,
-        md: `"nav nav" "aside main"`,
-        lg: `"nav nav" "aside main"`, // >1024px
+        base: `"aside" "main"`,
+        md: `"aside main"`, // lg >1024px
       }}
       templateColumns={{
         base: "1fr",
         md: "200px 1fr",
-        lg: "200px 1fr",
       }}
     >
-      <GridItem area="nav">
-        <NavBar
-          onSearch={(searchText) =>
-            setMusicQuery({ ...musicQuery, searchText })
-          }
-        />
-      </GridItem>
-
       <Hide below="md">
-        <GridItem area="aside" paddingX={5}>
+        <GridItem area="aside" paddingX={5} paddingTop={7}>
           <MusicGenreList
             isCollapse={false}
             selectedGenre={musicQuery.genre}
@@ -61,8 +59,24 @@ function Browse() {
       </Show>
 
       <GridItem area="main">
-        <Box paddingLeft={2}>
-          <MusicHeading musicQuery={musicQuery} />
+        <Box paddingX={2}>
+          <Flex
+            direction={{ base: "column", lg: "row" }} // Column on small screens, row on medium and larger
+            justifyContent="space-between"
+            alignItems="center"
+            marginBottom={5} // Add space between this section and the next
+          >
+            <MusicHeading musicQuery={musicQuery} />
+
+            <SearchInput
+              onSearch={(searchText) =>
+                setMusicQuery({ ...musicQuery, searchText })
+              }
+              // Full width on small screens, auto on larger
+              // Add space when stacked vertically
+            />
+          </Flex>
+
           <HStack spacing={5} marginBottom={5}>
             <MusicLevelSelector
               selectedLevel={musicQuery.level}
