@@ -16,7 +16,7 @@ const SortSelector = ({ onSelectSortOrder, sortOrder }: Props) => {
     { value: "yearAsc", label: "Release year ascending" },
     { value: "yearDesc", label: "Release year descending" },
     { value: "levelAsc", label: "Difficulty ascending" },
-    { value: "levelAsc", label: "Difficulty descending" },
+    { value: "levelDesc", label: "Difficulty descending" },
   ];
 
   const currentSortOrder = sortOrders.find(
