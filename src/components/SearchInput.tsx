@@ -20,8 +20,8 @@ const SearchInput = ({ onSearch }: Props) => {
         <Input
           ref={ref}
           borderRadius={20}
-          placeholder="Search games..."
-          variant="filled"
+          placeholder="Search music..."
+          bgColor={"gray.600"}
         />
       </InputGroup>
     </form>

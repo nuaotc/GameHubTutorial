@@ -6,15 +6,20 @@ import {
   Image,
   List,
   ListItem,
-  Spinner,
   useDisclosure,
 } from "@chakra-ui/react";
-import useGenres, { Genre } from "../hooks/useGenres";
-import getCroppedImageUrl from "../services/image-url";
+import musicGenres from "../data/musicGenres";
+import all from "../assets/musicGenreIcons/all.png";
+
+export interface MusicGenre {
+  id: number;
+  name: string;
+  image: string;
+}
 
 interface Props {
-  onSelectGenre: (genre: Genre) => void;
-  selectedGenre: Genre | null;
+  onSelectGenre: (genre: MusicGenre | null) => void;
+  selectedGenre: MusicGenre | null;
   isCollapse: boolean;
 }
 
@@ -23,15 +28,17 @@ interface Props {
 //Since the genre don't change, it should be static, and ship with the application
 //no extra request need to send to the server api, the data will be available right away
 
-const GenreList = ({ onSelectGenre, selectedGenre, isCollapse }: Props) => {
-  const { data, error, isLoading } = useGenres();
-
+const MusicGenreList = ({
+  onSelectGenre,
+  selectedGenre,
+  isCollapse,
+}: Props) => {
   const { isOpen, onToggle } = useDisclosure();
 
   // showing error on different parts of the page can be confusing and unnecessary
   // but leting user know what is happening can be helpful to determine whether is the server problem or internet problem
-  if (error) return null;
-  if (isLoading) return <Spinner />;
+  // if (error) return null;
+  // if (isLoading) return <Spinner />;
 
   //default whitespace (textwrap) for button is no wrap
   //objectFit="cover" with this image will be scaled to fit the container while preserving aspect ratio
@@ -43,18 +50,38 @@ const GenreList = ({ onSelectGenre, selectedGenre, isCollapse }: Props) => {
           Genres
         </Heading>
         <List>
-          {data.map((genre) => (
+          <ListItem paddingY="5px">
+            <HStack>
+              <Image
+                boxSize="32px"
+                borderRadius={8}
+                objectFit="cover"
+                src={all}
+              />
+              <Button
+                justifyContent="flex-start"
+                fontWeight={selectedGenre ? "normal" : "bold"}
+                color={selectedGenre ? "normal" : "blue.300"}
+                onClick={() => onSelectGenre(null)}
+                fontSize="lg"
+                variant="link"
+              >
+                All
+              </Button>
+            </HStack>
+          </ListItem>
+
+          {musicGenres.map((genre) => (
             <ListItem key={genre.id} paddingY="5px">
               <HStack>
                 <Image
                   boxSize="32px"
                   borderRadius={8}
                   objectFit="cover"
-                  src={getCroppedImageUrl(genre.image_background)}
+                  src={genre.image}
                 />
                 <Button
-                  whiteSpace="normal"
-                  textAlign="left"
+                  justifyContent="flex-start"
                   fontWeight={
                     genre.id === selectedGenre?.id ? "bold" : "normal"
                   }
@@ -78,11 +105,20 @@ const GenreList = ({ onSelectGenre, selectedGenre, isCollapse }: Props) => {
       <Collapse in={isOpen} animateOpacity>
         <List>
           <HStack wrap={"wrap"}>
-            {data.map((genre) => (
+            <ListItem paddingY="5px">
+              <Button
+                fontWeight={selectedGenre ? "normal" : "bold"}
+                color={selectedGenre ? "normal" : "blue.300"}
+                onClick={() => onSelectGenre(null)}
+                fontSize="lg"
+                variant="outline"
+              >
+                All
+              </Button>
+            </ListItem>
+            {musicGenres.map((genre) => (
               <ListItem key={genre.id} paddingY="5px">
                 <Button
-                  whiteSpace="normal"
-                  textAlign="left"
                   fontWeight={
                     genre.id === selectedGenre?.id ? "bold" : "normal"
                   }
@@ -102,4 +138,4 @@ const GenreList = ({ onSelectGenre, selectedGenre, isCollapse }: Props) => {
   );
 };
 
-export default GenreList;
+export default MusicGenreList;
