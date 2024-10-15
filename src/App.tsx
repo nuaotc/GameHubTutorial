@@ -2,6 +2,7 @@ import { Button, Grid, GridItem } from "@chakra-ui/react";
 import Browse from "./components/Browse";
 import NavBarMain from "./components/NavBarMain";
 import Play from "./components/Play";
+import Form from "./components/Form";
 import { Route, Routes } from "react-router-dom";
 import { useState } from "react";
 import { FaArrowUp } from "react-icons/fa";
@@ -48,6 +49,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/play" element={<Play />} />
           <Route path="/browse" element={<Browse />} />
+          <Route path="/request" element={<Form />} />
         </Routes>
         <Button
           className="toTopBtn"
