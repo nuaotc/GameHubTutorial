@@ -2,8 +2,8 @@ import { Heading, Image, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import homePic from "../assets/home.png";
 import violinStart from "../assets/audio/violinEntry.mp3";
-import bowSmall from "../assets/bow2.png";
-import bowLarge from "../assets/bow1.png";
+import bow2 from "../assets/bow2.png";
+import bow1 from "../assets/bow1.png";
 import { useState } from "react";
 
 const Home = () => {
@@ -12,7 +12,7 @@ const Home = () => {
     audio.play();
   };
 
-  const [imageSrc, setImageSrc] = useState(bowLarge);
+  const [imageSrc, setImageSrc] = useState(bow1);
 
   return (
     <>
@@ -44,12 +44,12 @@ const Home = () => {
 
       <Link to="/play">
         <Image
-          maxWidth={{ base: "300px", sm: "400px", md: "600px" }}
+          maxWidth={{ base: "400px", md: "600px" }}
           mx={"auto"}
           src={imageSrc}
           alt="Hoverable"
-          onMouseEnter={() => setImageSrc(bowSmall)} // Change image on hover
-          onMouseLeave={() => setImageSrc(bowLarge)} // Revert on mouse leave
+          onMouseEnter={() => setImageSrc(bow2)} // Change image on hover
+          onMouseLeave={() => setImageSrc(bow1)} // Revert on mouse leave
           transition="0.3s ease"
           onClick={playSound} // Smooth transition effect
         />

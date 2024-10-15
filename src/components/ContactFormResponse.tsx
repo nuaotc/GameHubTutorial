@@ -1,7 +1,8 @@
 import violinPic from "../assets/violinSilhouette.png";
-import { Box, Image, Text } from "@chakra-ui/react";
+import { Box, Button, Image, Text } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
 import "./ContactFormResponseAnimation.css";
+import { FaArrowUp } from "react-icons/fa";
 
 const ContactFormResponse = () => {
   const location = useLocation();
