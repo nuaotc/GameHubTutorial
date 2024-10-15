@@ -36,7 +36,7 @@ const NavBarMain = () => {
         <ul>
           <CustomLink to="/play">Play</CustomLink>
           <CustomLink to="/browse">Browse</CustomLink>
-          <CustomLink to="/request">Request</CustomLink>
+          <CustomLink to="/contact">Contact</CustomLink>
         </ul>
       </nav>
     </>

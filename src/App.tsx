@@ -2,16 +2,17 @@ import { Button, Grid, GridItem } from "@chakra-ui/react";
 import Browse from "./components/Browse";
 import NavBarMain from "./components/NavBarMain";
 import Play from "./components/Play";
-import Form from "./components/Form";
 import { Route, Routes } from "react-router-dom";
 import { useState } from "react";
 import { FaArrowUp } from "react-icons/fa";
 import Home from "./components/Home";
+import ContactForm from "./components/ContactForm";
+import ContactFormResponse from "./components/ContactFormResponse";
 
 function App() {
   const [isScrolling, setScrolling] = useState(false);
   window.addEventListener("scroll", function () {
-    if (this.window.scrollY > 50) {
+    if (this.window.scrollY > 100) {
       setScrolling(true);
     } else {
       setScrolling(false);
@@ -49,14 +50,18 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/play" element={<Play />} />
           <Route path="/browse" element={<Browse />} />
-          <Route path="/request" element={<Form />} />
+          <Route path="/contact" element={<ContactForm />} />
+          <Route
+            path="/contactFormResponse"
+            element={<ContactFormResponse />}
+          />
         </Routes>
         <Button
           className="toTopBtn"
           bottom="10"
           right="5"
           color="black"
-          background="#63b3ed"
+          background={"blue.300"}
           position={"fixed"}
           display={isScrolling ? "block" : "none"}
           fontWeight={"bold"}

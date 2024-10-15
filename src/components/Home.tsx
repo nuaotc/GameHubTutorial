@@ -18,7 +18,7 @@ const Home = () => {
     <>
       <Image
         src={homePic}
-        maxWidth={{ base: "200px", sm: "300px", md: "450px" }}
+        maxWidth={{ base: "250px", sm: "300px", md: "450px" }}
         mx="auto"
         marginTop={10}
       />
@@ -37,7 +37,7 @@ const Home = () => {
         textAlign={"center"}
         color={"white"}
         margin={3}
-        fontSize={{ base: "xl", md: "3xl" }}
+        fontSize={{ base: "xl", md: "2xl" }}
       >
         Learn the violin, one note at a time
       </Text>
