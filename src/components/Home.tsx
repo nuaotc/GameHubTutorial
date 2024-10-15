@@ -2,8 +2,8 @@ import { Heading, Image, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import homePic from "../assets/home.png";
 import violinStart from "../assets/audio/violinEntry.mp3";
-import bowSmall from "../assets/bow_sm.png";
-import bowLarge from "../assets/bow_lg.png";
+import bowSmall from "../assets/bow2.png";
+import bowLarge from "../assets/bow1.png";
 import { useState } from "react";
 
 const Home = () => {
