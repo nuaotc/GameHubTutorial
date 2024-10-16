@@ -21,21 +21,10 @@ function Play() {
   //instead of apply padding to each component, that way when we need to make changes in the future, only need to change one place
   return (
     <Grid
-      templateAreas={{
-        base: `"control staff" "control fingerBoard"`,
-        sm: `"staff" "fingerBoard" "control"`,
-      }}
-      templateColumns={{
-        base: "20% 80%",
-        sm: "1fr",
-      }}
+      templateAreas={`"staff" "fingerBoard" "control"`}
+      templateColumns="1fr"
     >
-      <GridItem
-        area="control"
-        mt="10px"
-        mx={"auto"}
-        width={{ base: "auto", sm: "16rem" }}
-      >
+      <GridItem area="control" mt="10px" mx={"auto"} width="16rem">
         <Control />
       </GridItem>
 
