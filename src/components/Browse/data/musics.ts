@@ -1,18 +1,18 @@
-import mozartEine from "../assets/musicAlbumArt/classiceinemozart_resized.png";
-import beethovenFurElis from "../assets/musicAlbumArt/classicfuelisabeethoven_resized.png";
-import bachToccata from "../assets/musicAlbumArt/classictoccatabach_resized.png";
-import countryRoads from "../assets/musicAlbumArt/folkcountryroads_resized.png";
-import soundOfSilence from "../assets/musicAlbumArt/folksoundofsilence_resized.png";
-import suzanne from "../assets/musicAlbumArt/folksuzanne_resized.png";
-import londonBridge from "../assets/musicAlbumArt/lullabylondonbridge_resized.png";
-import marryLamb from "../assets/musicAlbumArt/lullabymarrylamb_resized.png";
-import twinkleStar from "../assets/musicAlbumArt/lullabytwinkle_resized.png";
-import godFather from "../assets/musicAlbumArt/moviegodfather_resized.png";
-import hedwig from "../assets/musicAlbumArt/moviehedwig_resized.png";
-import schindler from "../assets/musicAlbumArt/moviewschindler_resized.png";
-import fightSong from "../assets/musicAlbumArt/popfightsong_resized.png";
-import someone from "../assets/musicAlbumArt/popsomeoneyouloved_resized.png";
-import whatAreWords from "../assets/musicAlbumArt/popwhatarewords_resized.png";
+import mozartEine from "../../../assets/musicAlbumArt/classiceinemozart_resized.png";
+import beethovenFurElis from "../../../assets/musicAlbumArt/classicfuelisabeethoven_resized.png";
+import bachToccata from "../../../assets/musicAlbumArt/classictoccatabach_resized.png";
+import countryRoads from "../../../assets/musicAlbumArt/folkcountryroads_resized.png";
+import soundOfSilence from "../../../assets/musicAlbumArt/folksoundofsilence_resized.png";
+import suzanne from "../../../assets/musicAlbumArt/folksuzanne_resized.png";
+import londonBridge from "../../../assets/musicAlbumArt/lullabylondonbridge_resized.png";
+import marryLamb from "../../../assets/musicAlbumArt/lullabymarrylamb_resized.png";
+import twinkleStar from "../../../assets/musicAlbumArt/lullabytwinkle_resized.png";
+import godFather from "../../../assets/musicAlbumArt/moviegodfather_resized.png";
+import hedwig from "../../../assets/musicAlbumArt/moviehedwig_resized.png";
+import schindler from "../../../assets/musicAlbumArt/moviewschindler_resized.png";
+import fightSong from "../../../assets/musicAlbumArt/popfightsong_resized.png";
+import someone from "../../../assets/musicAlbumArt/popsomeoneyouloved_resized.png";
+import whatAreWords from "../../../assets/musicAlbumArt/popwhatarewords_resized.png";
 
 export default [
   {

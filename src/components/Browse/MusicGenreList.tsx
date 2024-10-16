@@ -8,8 +8,8 @@ import {
   ListItem,
   useDisclosure,
 } from "@chakra-ui/react";
-import musicGenres from "../data/musicGenres";
-import all from "../assets/musicGenreIcons/all.png";
+import musicGenres from "./data/musicGenres";
+import all from "../../assets/musicGenreIcons/all.png";
 
 export interface MusicGenre {
   id: number;

@@ -1,0 +1,36 @@
+.fingerBoard {
+  display: grid;
+  margin-top: 10px;
+  grid-template-columns: repeat(4, 4rem);
+  grid-template-rows: repeat(7, 3rem);
+  position: relative;
+}
+
+.fingerBoardTile {
+  font-size: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.position {
+  background-color: #2d3748;
+}
+
+.partialString {
+  width: 4px;
+  height: 100%;
+  background-color: #4a5568;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 100;
+}
+
+.partialStringTop {
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  color: #63b3ed;
+  text-align: center;
+}

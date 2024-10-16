@@ -1,4 +1,5 @@
-import { HStack, Switch, Text, useColorMode } from "@chakra-ui/react";
+import { HStack, Switch, useColorMode } from "@chakra-ui/react";
+import { HiOutlineLightBulb } from "react-icons/hi";
 
 const ColorModeSwitch = () => {
   const { toggleColorMode, colorMode } = useColorMode();
@@ -6,11 +7,11 @@ const ColorModeSwitch = () => {
   return (
     <HStack>
       <Switch
-        colorScheme="green"
+        color={"blue.300"}
         isChecked={colorMode === "dark"}
         onChange={toggleColorMode}
       />
-      <Text whiteSpace="nowrap">Dark Mode</Text>
+      <HiOutlineLightBulb size={20} />
     </HStack>
   );
 };

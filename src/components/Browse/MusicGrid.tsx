@@ -1,8 +1,8 @@
 import { SimpleGrid } from "@chakra-ui/react";
 import MusicCard from "./MusicCard";
 import { useState, useEffect } from "react";
-import musics from "../data/musics";
-import { MusicQuery } from "../components/Browse";
+import musics from "./data/musics";
+import { MusicQuery } from "./Browse";
 import MusicCardContainer from "./MusicCardContainer";
 import MusicCardSkeleton from "./MusicCardSkeleton";
 

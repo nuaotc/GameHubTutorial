@@ -1,5 +1,5 @@
 .resImg {
-  animation: appearAndShrink 3s forwards; /* Animate image */
+  animation: appearAndShrink 2s forwards; /* Animate image */
 }
 
 @keyframes appearAndShrink {
@@ -20,7 +20,7 @@
 .resMsg {
   opacity: 0; /* Start fully transparent */
   transform: scale(0); /* Start with nothing */
-  animation: zoomOut 2s forwards 3s; /* Delay to start 1s after image animation started, as image nearly gone, comes the text */
+  animation: zoomOut 2s forwards 2s; /* Delay to start 1s after image animation started, as image nearly gone, comes the text */
 }
 
 @keyframes zoomOut {

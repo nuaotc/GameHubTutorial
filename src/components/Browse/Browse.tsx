@@ -9,11 +9,11 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import MusicGenreList, { MusicGenre } from "./MusicGenreList";
-import SortSelector from "./SortSelector";
+import MusicSortSelector from "./MusicSortSelector";
 import MusicGrid from "./MusicGrid";
 import MusicLevelSelector, { MusicLevel } from "./MusicLevelSelector";
 import MusicHeading from "./MusicHeading";
-import SearchInput from "./SearchInput";
+import MusicSearchInput from "./MusicSearchInput";
 
 export interface MusicQuery {
   genre: MusicGenre | null;
@@ -68,7 +68,7 @@ function Browse() {
           >
             <MusicHeading musicQuery={musicQuery} />
 
-            <SearchInput
+            <MusicSearchInput
               onSearch={(searchText) =>
                 setMusicQuery({ ...musicQuery, searchText })
               }
@@ -82,7 +82,7 @@ function Browse() {
               selectedLevel={musicQuery.level}
               onSelectLevel={(level) => setMusicQuery({ ...musicQuery, level })}
             />
-            <SortSelector
+            <MusicSortSelector
               sortOrder={musicQuery.sortOrder}
               onSelectSortOrder={(sortOrder) =>
                 setMusicQuery({ ...musicQuery, sortOrder })

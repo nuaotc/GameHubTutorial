@@ -1,13 +1,13 @@
 import { Button, Grid, GridItem } from "@chakra-ui/react";
-import Browse from "./components/Browse";
+import Browse from "./components/Browse/Browse";
 import NavBarMain from "./components/NavBarMain";
-import Play from "./components/Play";
+import Play from "./components/Play/Play";
 import { Route, Routes } from "react-router-dom";
 import { useState } from "react";
 import { FaArrowUp } from "react-icons/fa";
 import Home from "./components/Home";
-import ContactForm from "./components/ContactForm";
-import ContactFormResponse from "./components/ContactFormResponse";
+import ContactForm from "./components/Contact/ContactForm";
+import ContactFormResponse from "./components/Contact/ContactFormResponse";
 
 function App() {
   const [isScrolling, setScrolling] = useState(false);

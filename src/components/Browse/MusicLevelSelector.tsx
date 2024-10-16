@@ -1,6 +1,6 @@
 import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
-import levels from "../data/musicLevels";
+import levels from "./data/musicLevels";
 
 export interface MusicLevel {
   id: number;
@@ -16,7 +16,7 @@ const MusicLevelSelector = ({ onSelectLevel, selectedLevel }: Props) => {
   return (
     <Menu>
       <MenuButton as={Button} rightIcon={<BsChevronDown />}>
-        {selectedLevel?.name || "Difficulty Level"}
+        {selectedLevel?.name || "Level"}
       </MenuButton>
       <MenuList>
         <MenuItem onClick={() => onSelectLevel(null)}>All</MenuItem>
