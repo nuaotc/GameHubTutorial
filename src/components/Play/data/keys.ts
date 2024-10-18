@@ -5,6 +5,7 @@ import AmajorFsharpminor from "../../../assets/keys/AmajorFsharpminor.png";
 import FmajorDminor from "../../../assets/keys/FmajorDminor.png";
 import BflatmajorGminor from "../../../assets/keys/BbmajorGminor.png";
 import EflatmajorCminor from "../../../assets/keys/EbmajorCminor.png";
+import EmajorCsharpminor from "../../../assets/keys/EmajorCsharpminor.png";
 
 export interface KeySignature {
   id: number;
@@ -97,5 +98,17 @@ export const keys: KeySignature[] = [
     name: "cminor",
     scale: ["C1", "D1", "Eb1", "F1", "G1", "Ab2", "Bb2", "C2"],
     file: EflatmajorCminor,
+  },
+  {
+    id: 15,
+    name: "emajor",
+    scale: ["E1", "F#1", "G#1", "A2", "B2", "C#2", "D#2", "E2"],
+    file: EmajorCsharpminor,
+  },
+  {
+    id: 16,
+    name: "csharpminor",
+    scale: ["C#1", "D#1", "E1", "F#1", "G#1", "A2", "B2", "C#2"],
+    file: EmajorCsharpminor,
   },
 ];

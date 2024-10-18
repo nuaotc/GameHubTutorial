@@ -6,7 +6,9 @@ import { Note, notes } from "./data/notes";
 import noteImages from "./data/staves";
 import noteImagePlaceholder from "../../assets/staves/empty.png";
 import { useLocation } from "react-router-dom";
+import endStaff from "../../assets/staves/empty_end.png";
 import "./Play.css";
+import { keys } from "./data/keys";
 
 function Play() {
   const preloadAudio = (src: string) => {
@@ -29,7 +31,10 @@ function Play() {
   };
 
   const location = useLocation();
-  const { noteSequence = [] } = location.state as { noteSequence: string[] };
+  const { noteSequence = [], keySignature = "" } = location.state as {
+    noteSequence: string[];
+    keySignature: string;
+  };
 
   const preloadedAudio = usePreloadAudioFiles();
 
@@ -154,6 +159,9 @@ function Play() {
     };
   }, []);
 
+  const key = keys.find((key) => key.name === keySignature);
+  const keyImg = key?.file;
+
   // Returns true if the note is the current one to guess
   // const isCurrentNote = (noteName: string) => {
   //   return inputSequence[currentNoteIndex] === noteName;
@@ -187,6 +195,11 @@ function Play() {
 
       <GridItem area="staff" mx={"auto"} mt={5}>
         <HStack spacing={0}>
+          <img
+            src={keyImg}
+            alt={`Key signature: ${keySignature}`}
+            style={{ opacity: 0.3 }} // Dimming the previous note
+          />
           {previousNote ? (
             <img
               src={getNoteImage(previousNote)}
@@ -218,6 +231,11 @@ function Play() {
               style={{ opacity: 0.3 }}
             />
           )}
+          <img
+            src={endStaff}
+            alt="Empty staff"
+            style={{ opacity: 0.3 }} // Dimming the previous note
+          />
         </HStack>
       </GridItem>
 

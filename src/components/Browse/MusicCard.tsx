@@ -49,7 +49,10 @@ const MusicCard = ({ music }: Props) => {
       borderWidth={{ base: "3px", md: "0px" }}
     >
       <div className="image-container">
-        <Link to={`/play`} state={{ noteSequence: music.notes }}>
+        <Link
+          to={`/play`}
+          state={{ noteSequence: music.notes, keySignature: music.key }}
+        >
           <img src={music.image} alt={music.name} className="image" />
           <div className="overlay">Play</div>
         </Link>
