@@ -20,7 +20,6 @@ const Staff = () => {
       <StaffTile showNote={false} lineSpace="line" lineType="ledger" />
       <StaffTile showNote={false} lineSpace="space" />
       <StaffTile showNote={false} lineSpace="line" lineType="ledger" />
-      <StaffTile showNote={false} lineSpace="space" />
     </div>
   );
 };

@@ -27,6 +27,8 @@ const levels = ["Beginner", "Intermediate", "Master"] as const;
 //zod provides default error messages based on the type, but its easy to customized them right where I defined the type
 //properties represent the form fields, validation rules added using the chaining method
 //within the rules, error messages can also be customised, or leave blank to use the default
+
+//As per lecturer's request, I made the form static, everything will show in reserved places, no change in page height
 const schema = z.object({
   name: z
     .string()
@@ -45,7 +47,7 @@ const schema = z.object({
   level: z.enum(levels, {
     errorMap: () => ({ message: "Please select a level" }),
   }),
-  request: z.string().min(5, "Title and composer at least 5 characters"),
+  request: z.string().min(5, "Message at least 5 characters"),
 });
 
 //z has a method that extracts the type from a schema logic similar to an interface
@@ -79,16 +81,25 @@ const ContactForm = () => {
 
   //error renders all error messages defined in the schema dynamically depends of error type
   //so no need to write hard coded display message for every validation rules
+  //
 
   return (
     <Box marginY={10} marginX={{ base: 10, lg: 200, xl: 400 }}>
       <Text fontSize={20} mb={5} color={"blue.300"}>
-        Can't find the music you like? Discovered a bug? Leave a message below,
-        and we'll look into it ASAP!
+        Request music here:
       </Text>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={!!errors.name} mb="4">
-          <FormLabel htmlFor="name">Name</FormLabel>
+          <Box display="inline-flex" alignItems="center">
+            <FormLabel htmlFor="name" marginBottom="0">
+              Name
+            </FormLabel>
+            {errors.name && (
+              <Text color="red.300" fontSize="sm" ml={2} mt={0}>
+                {errors.name.message}
+              </Text>
+            )}
+          </Box>
           <Input
             {...register("name")}
             id="name"
@@ -96,16 +107,21 @@ const ContactForm = () => {
             autoComplete="off"
             focusBorderColor="blue.300"
             backgroundColor={"gray.700"}
+            mt={1}
           />
-          {errors.name && (
-            <Text color="red.300" fontSize="sm">
-              {errors.name.message}
-            </Text>
-          )}
         </FormControl>
 
         <FormControl isInvalid={!!errors.age} mb="4">
-          <FormLabel htmlFor="age">Age</FormLabel>
+          <Box display="inline-flex" alignItems="center">
+            <FormLabel htmlFor="age" marginBottom="0">
+              Age
+            </FormLabel>
+            {errors.age && (
+              <Text color="red.300" fontSize="sm" ml={2} mt={0}>
+                {errors.age.message}
+              </Text>
+            )}
+          </Box>
           <Input
             {...register("age", { valueAsNumber: true })}
             id="age"
@@ -113,16 +129,21 @@ const ContactForm = () => {
             autoComplete="off"
             focusBorderColor="blue.300"
             backgroundColor={"gray.700"}
+            mt={1}
           />
-          {errors.age && (
-            <Text color="red.300" fontSize="sm">
-              {errors.age.message}
-            </Text>
-          )}
         </FormControl>
 
         <FormControl isInvalid={!!errors.email} mb="4">
-          <FormLabel htmlFor="email">Email</FormLabel>
+          <Box display="inline-flex" alignItems="center">
+            <FormLabel htmlFor="email" marginBottom="0">
+              Email
+            </FormLabel>
+            {errors.email && (
+              <Text color="red.300" fontSize="sm" ml={2} mt={0}>
+                {errors.email.message}
+              </Text>
+            )}
+          </Box>
           <Input
             {...register("email")}
             id="email"
@@ -130,22 +151,28 @@ const ContactForm = () => {
             autoComplete="off"
             focusBorderColor="blue.300"
             backgroundColor={"gray.700"}
+            mt={1}
           />
-          {errors.email && (
-            <Text color="red.300" fontSize="sm">
-              {errors.email.message}
-            </Text>
-          )}
         </FormControl>
 
         <FormControl isInvalid={!!errors.level} mb="4">
-          <FormLabel htmlFor="level">Level</FormLabel>
+          <Box display="inline-flex" alignItems="center">
+            <FormLabel htmlFor="level" marginBottom="0">
+              Level
+            </FormLabel>
+            {errors.level && (
+              <Text color="red.300" fontSize="sm" ml={2} mt={0}>
+                {errors.level.message}
+              </Text>
+            )}
+          </Box>
           <Select
             {...register("level")}
             id="level"
             placeholder="Select level"
             focusBorderColor="blue.300"
             backgroundColor={"gray.700"}
+            mt={1}
           >
             {levels.map((level) => (
               <option key={level} value={level}>
@@ -153,27 +180,27 @@ const ContactForm = () => {
               </option>
             ))}
           </Select>
-          {errors.level && (
-            <Text color="red.300" fontSize="sm">
-              {errors.level.message}
-            </Text>
-          )}
         </FormControl>
 
         <FormControl isInvalid={!!errors.request} mb="4">
-          <FormLabel htmlFor="request">Message</FormLabel>
+          <Box display="inline-flex" alignItems="center">
+            <FormLabel htmlFor="request" marginBottom="0">
+              Message
+            </FormLabel>
+            {errors.request && (
+              <Text color="red.300" fontSize="sm" ml={2} mt={0}>
+                {errors.request.message}
+              </Text>
+            )}
+          </Box>
           <Textarea
             {...register("request")}
             id="request"
             placeholder="Tell us anything!"
             focusBorderColor="blue.300"
             backgroundColor={"gray.700"}
+            mt={1}
           />
-          {errors.request && (
-            <Text color="red.300" fontSize="sm">
-              {errors.request.message}
-            </Text>
-          )}
         </FormControl>
 
         <Button

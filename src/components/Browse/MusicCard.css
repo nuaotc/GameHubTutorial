@@ -1,0 +1,30 @@
+.image-container {
+  position: relative;
+  display: inline-block;
+}
+
+.image {
+  display: block;
+  width: 100%; /* Adjust as needed */
+  transition: opacity 0.5s ease;
+}
+
+.image-container:hover .image {
+  opacity: 0.2; /* Dimming effect */
+}
+
+.overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #63b3ed;
+  font-size: 1.5rem;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.image-container:hover .overlay {
+  opacity: 1;
+}

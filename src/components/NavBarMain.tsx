@@ -34,7 +34,6 @@ const NavBarMain = () => {
       </Link>
       <nav>
         <ul>
-          <CustomLink to="/play">Play</CustomLink>
           <CustomLink to="/browse">Browse</CustomLink>
           <CustomLink to="/contact">Contact</CustomLink>
         </ul>

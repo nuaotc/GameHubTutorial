@@ -1,60 +1,57 @@
-import { Heading, Image, Text } from "@chakra-ui/react";
+import { Button, HStack, Image, VStack } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import homePic from "../assets/home.png";
-import violinStart from "../assets/audio/violinEntry.mp3";
-import bow2 from "../assets/bow2.png";
-import bow1 from "../assets/bow1.png";
-import { useState } from "react";
+import noteA1 from "../assets/audio/notes/02A1.m4a";
+import musics from "./Browse/data/musics";
+import { Music } from "./Browse/MusicCard";
 
 const Home = () => {
   const playSound = () => {
-    const audio = new Audio(violinStart);
+    const audio = new Audio(noteA1);
+    audio.volume = 0.2;
     audio.play();
   };
 
-  const [imageSrc, setImageSrc] = useState(bow1);
+  const music: Music = musics[12];
 
   return (
-    <>
+    <VStack mx={"auto"} mt={10}>
       <Image
         src={homePic}
         maxWidth={{ base: "250px", sm: "300px", md: "450px" }}
         mx="auto"
         marginTop={10}
       />
-
-      <Heading
-        as="h1"
-        textAlign={"center"}
-        color={"blue.300"}
-        margin={3}
-        fontSize={{ base: "3xl", md: "5xl" }}
-      >
-        Welcome to VioLearn
-      </Heading>
-
-      <Text
-        textAlign={"center"}
-        color={"white"}
-        margin={3}
-        fontSize={{ base: "xl", md: "2xl" }}
-      >
-        Learn the violin, one note at a time
-      </Text>
-
-      <Link to="/play">
-        <Image
-          maxWidth={{ base: "400px", md: "600px" }}
-          mx={"auto"}
-          src={imageSrc}
-          alt="Hoverable"
-          onMouseEnter={() => setImageSrc(bow2)} // Change image on hover
-          onMouseLeave={() => setImageSrc(bow1)} // Revert on mouse leave
-          transition="0.3s ease"
-          onClick={playSound} // Smooth transition effect
-        />
-      </Link>
-    </>
+      <HStack mt={10}>
+        <Link
+          to="/play"
+          state={{
+            noteSequence: music.notes,
+          }}
+        >
+          <Button
+            backgroundColor={"blue.300"}
+            color={"black"}
+            fontWeight={"bold"}
+            _hover={{ bg: "white" }}
+            onClick={playSound}
+          >
+            Try now
+          </Button>
+        </Link>
+        <Link to="/play">
+          <Button
+            backgroundColor={"blue.300"}
+            color={"black"}
+            fontWeight={"bold"}
+            _hover={{ bg: "white" }}
+            onClick={playSound}
+          >
+            Browse collection
+          </Button>
+        </Link>
+      </HStack>
+    </VStack>
   );
 };
 

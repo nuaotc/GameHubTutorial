@@ -1,4 +1,4 @@
-import violinPic from "../../assets/violinSilhouette.png";
+import violinPic from "../../assets/violinSilhouette_resized.png";
 import { Box, Image, Text } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
 import "./ContactFormResponse.css";
@@ -10,7 +10,7 @@ const ContactFormResponse = () => {
     <Box>
       <Image
         mx={"auto"}
-        marginTop={10}
+        marginTop={100}
         src={violinPic}
         alt="Animated"
         className="resImg"
@@ -22,7 +22,7 @@ const ContactFormResponse = () => {
         mt={250}
         color={"blue.300"}
       >
-        Message received! Thank you {name}!
+        Message received, {name}!
       </Text>
     </Box>
   );
