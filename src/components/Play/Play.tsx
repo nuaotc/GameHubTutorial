@@ -9,8 +9,29 @@ import { useLocation } from "react-router-dom";
 import "./Play.css";
 
 function Play() {
+  const preloadAudio = (src: string) => {
+    const audio = new Audio(src);
+    audio.preload = "auto"; // Preload the audio file
+    return audio;
+  };
+
+  const usePreloadAudioFiles = () => {
+    const audioFiles = useRef<{ [key: string]: HTMLAudioElement }>({});
+
+    useEffect(() => {
+      notes.forEach((note: Note) => {
+        // Preload the audio and store it in the ref object by the first name in the array
+        audioFiles.current[note.name[0]] = preloadAudio(note.file);
+      });
+    }, []);
+
+    return audioFiles.current; // Return preloaded audio files
+  };
+
   const location = useLocation();
   const { noteSequence = [] } = location.state as { noteSequence: string[] };
+
+  const preloadedAudio = usePreloadAudioFiles();
 
   const [isPlaying, setIsPlaying] = useState(false);
   const inputSequence = noteSequence;
@@ -53,11 +74,15 @@ function Play() {
   const handleNoteClick = (noteName: string) => {
     const correctNote = inputSequence[currentNoteIndex];
 
-    const clickedNote = notes.find((n: Note) => n.name.includes(noteName));
+    // Find the note that matches the clicked name
+    const noteToPlay = notes.find((note) => note.name.includes(noteName));
 
-    if (clickedNote) {
-      const audio = new Audio(clickedNote.file);
-      audio.play();
+    if (noteToPlay) {
+      const audio = preloadedAudio[noteToPlay.name[0]]; // Access preloaded audio by the first name
+      if (audio) {
+        audio.currentTime = 0; // Reset audio to the start
+        audio.play(); // Play the preloaded audio
+      }
     }
 
     if (noteName === correctNote) {
@@ -69,15 +94,20 @@ function Play() {
         setShowMsg(true);
       }
     } else {
-      setIncorrectNote(noteName);
+      setIncorrectNote(noteName); // Mark as incorrect
     }
   };
 
-  const playNote = (note: string) => {
-    const noteToPlay = notes.find((n: Note) => n.name.includes(note));
+  const playNote = (noteName: string) => {
+    // Find the note that matches the played name
+    const noteToPlay = notes.find((note) => note.name.includes(noteName));
+
     if (noteToPlay) {
-      const audio = new Audio(noteToPlay.file);
-      audio.play();
+      const audio = preloadedAudio[noteToPlay.name[0]]; // Access preloaded audio by the first name
+      if (audio) {
+        audio.currentTime = 0; // Reset audio to the start
+        audio.play(); // Play the preloaded audio
+      }
     }
   };
 
@@ -111,6 +141,7 @@ function Play() {
     if (isPlaying) {
       stopAutoplay(); // Stop the autoplay if it's currently playing
     } else {
+      setIncorrectNote(null);
       setIsPlaying(true); // Start autoplay
       startAutoplay(); // Call the function to start the sequence
     }
@@ -142,11 +173,13 @@ function Play() {
           isPlaying={isPlaying}
         />
         <Text
+          mt={5}
           className={`msg ${showMsg ? "active" : ""}`}
           color={"blue.300"}
           textAlign={"center"}
-          fontSize={"xxx-large"}
+          fontSize="40px"
           fontWeight={"bold"}
+          fontFamily="segoe script"
         >
           {showMsg ? "Well Done!" : ""}
         </Text>

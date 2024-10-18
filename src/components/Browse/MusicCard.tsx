@@ -15,7 +15,6 @@ import React from "react";
 import { IconType } from "react-icons";
 import "./MusicCard.css";
 import { Link } from "react-router-dom";
-import noteA1 from "../../assets/audio/notes/02A1.m4a";
 
 export interface Music {
   id: number;
@@ -40,11 +39,6 @@ const iconMap: { [key: number]: IconType } = {
 };
 
 const MusicCard = ({ music }: Props) => {
-  const playSound = () => {
-    const audio = new Audio(noteA1);
-    audio.volume = 0.2;
-    audio.play();
-  };
   const [show, setShow] = React.useState(false);
 
   const handleToggle = () => setShow(!show);
@@ -54,7 +48,7 @@ const MusicCard = ({ music }: Props) => {
       variant={{ base: "outline", md: "filled" }}
       borderWidth={{ base: "3px", md: "0px" }}
     >
-      <div onClick={playSound} className="image-container">
+      <div className="image-container">
         <Link to={`/play`} state={{ noteSequence: music.notes }}>
           <img src={music.image} alt={music.name} className="image" />
           <div className="overlay">Play</div>
