@@ -1,10 +1,23 @@
-.msg {
-  color: #63b3ed; /* Initial color */
-  opacity: 0; /* Start fully transparent */
-  transition: color 4s ease-in-out, opacity 1s ease-in-out; /* Transition for both color and opacity */
-}
-
-.msg.active {
-  color: #ffffff1d; /* Color when active */
-  opacity: 1; /* Fully opaque */
+@keyframes rainbowDash {
+  0% {
+    border-color: red;
+  }
+  16% {
+    border-color: orange;
+  }
+  32% {
+    border-color: yellow;
+  }
+  48% {
+    border-color: green;
+  }
+  64% {
+    border-color: blue;
+  }
+  80% {
+    border-color: indigo;
+  }
+  100% {
+    border-color: violet;
+  }
 }

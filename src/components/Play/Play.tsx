@@ -42,6 +42,7 @@ function Play() {
   const inputSequence = noteSequence;
   const [currentNoteIndex, setCurrentNoteIndex] = useState(0); // Tracks the correct note to click next
   const [incorrectNote, setIncorrectNote] = useState<string | null>(null); // Tracks last incorrect note clicked
+  const [misses, setMisses] = useState(0);
 
   const [showNames, setShowNames] = useState(true); // Start with names visible
   const [showMsg, setShowMsg] = useState(false);
@@ -56,6 +57,7 @@ function Play() {
   const handleRefresh = () => {
     setCurrentNoteIndex(0);
     setIncorrectNote(null);
+    setMisses(0);
     setShowMsg(false);
   };
 
@@ -67,13 +69,21 @@ function Play() {
     return noteImages[noteWithoutAccidental as keyof typeof noteImages];
   };
 
-  const previousNote =
-    currentNoteIndex > 0 ? inputSequence[currentNoteIndex - 1] : null;
   const currentNote = inputSequence[currentNoteIndex];
   const nextNote =
     currentNoteIndex < inputSequence.length - 1
       ? inputSequence[currentNoteIndex + 1]
       : null;
+
+  const getGrade = (misses: number) => {
+    if (misses === 0) return "SSS";
+    if (misses === 1) return "SS";
+    if (misses === 2) return "S";
+    if (misses === 3) return "A";
+    if (misses === 4) return "B";
+    if (misses === 5) return "C";
+    return "Fail"; // 6 or more misses
+  };
 
   // Function to handle when a note is clicked
   const handleNoteClick = (noteName: string) => {
@@ -99,7 +109,8 @@ function Play() {
         setShowMsg(true);
       }
     } else {
-      setIncorrectNote(noteName); // Mark as incorrect
+      setIncorrectNote(noteName);
+      setMisses(misses + 1); // Mark as incorrect
     }
   };
 
@@ -138,7 +149,7 @@ function Play() {
       } else {
         stopAutoplay(); // Stop autoplay once all notes are played
       }
-    }, 520); // Set the interval to 500ms between notes
+    }, 500); // Set the interval to 500ms between notes
   };
 
   // Toggle autoplay when the button is clicked
@@ -180,17 +191,27 @@ function Play() {
           autoPlay={handleAutoplay}
           isPlaying={isPlaying}
         />
-        <Text
-          mt={5}
-          className={`msg ${showMsg ? "active" : ""}`}
-          color={"blue.300"}
-          textAlign={"center"}
-          fontSize="40px"
-          fontWeight={"bold"}
-          fontFamily="segoe script"
-        >
-          {showMsg ? "Well Done!" : ""}
+
+        <Text mt={2} fontSize="18px" color="gray.500" textAlign="center">
+          Misses: {misses}
         </Text>
+
+        {showMsg && (
+          <Text
+            mt={2}
+            className={`msg ${showMsg ? "active" : ""}`}
+            color={"blue.300"}
+            textAlign={"center"}
+            fontSize="30px"
+            fontWeight={"bold"}
+            border={showMsg ? "2px dashed" : "none"}
+            borderColor="blue"
+            animation={showMsg ? "rainbowDash 1.5s linear infinite" : "none"}
+            sx={{ padding: "5px", borderRadius: "8px" }}
+          >
+            Grade: {getGrade(misses)}
+          </Text>
+        )}
       </GridItem>
 
       <GridItem area="staff" mx={"auto"} mt={5}>
@@ -200,19 +221,7 @@ function Play() {
             alt={`Key signature: ${keySignature}`}
             style={{ opacity: 0.3 }} // Dimming the previous note
           />
-          {previousNote ? (
-            <img
-              src={getNoteImage(previousNote)}
-              alt={`Previous note: ${previousNote}`}
-              style={{ opacity: 0.3 }} // Dimming the previous note
-            />
-          ) : (
-            <img
-              src={noteImagePlaceholder}
-              alt="Empty"
-              style={{ opacity: 0.3 }}
-            />
-          )}
+
           <img
             src={getNoteImage(currentNote)}
             alt={`Current note: ${currentNote}`}

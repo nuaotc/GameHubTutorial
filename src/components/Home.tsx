@@ -6,7 +6,8 @@ import musics from "./Browse/data/musics";
 import { Music } from "./Browse/MusicCard";
 
 const Home = () => {
-  const music: Music = musics[12];
+  const tryMusic: Music =
+    musics.find((item) => item.name === "Mary Had a Little Lamb") ?? musics[0];
 
   return (
     <VStack mx={"auto"} mt={10}>
@@ -20,7 +21,8 @@ const Home = () => {
         <Link
           to="/play"
           state={{
-            noteSequence: music.notes,
+            noteSequence: tryMusic.notes,
+            keySignature: tryMusic.key,
           }}
         >
           <Button
@@ -29,7 +31,7 @@ const Home = () => {
             fontWeight={"bold"}
             _hover={{ bg: "white" }}
           >
-            Try now
+            Play now
           </Button>
         </Link>
         <Link to="/browse">
