@@ -2,9 +2,9 @@ import "./FingerBoard.css";
 import FingerBoardTile from "./FingerBoardTile";
 
 interface Props {
-  handleNoteClick: (noteName: string) => void; // Function to handle note clicks
-  incorrectNote: string | null; // The incorrect note for styling
-  currentNote: string;
+  handleNoteClick: (noteId: number) => void; // Function to handle note clicks
+  incorrectNote: number; // The incorrect note for styling
+  currentNote: number;
   showNames: boolean;
 }
 
@@ -21,7 +21,7 @@ const FingerBoard = ({
         currentNote={currentNote}
         showNames={showNames}
         handleNoteClick={handleNoteClick}
-        noteName={["G#0", "Ab1"]}
+        noteId={1}
       >
         {/* G#/Ab */}
       </FingerBoardTile>
@@ -31,7 +31,7 @@ const FingerBoard = ({
         currentNote={currentNote}
         showNames={showNames}
         handleNoteClick={handleNoteClick}
-        noteName={["D#1", "Eb1"]}
+        noteId={8}
       >
         {/* D#/Eb */}
       </FingerBoardTile>
@@ -41,7 +41,7 @@ const FingerBoard = ({
         currentNote={currentNote}
         showNames={showNames}
         handleNoteClick={handleNoteClick}
-        noteName={["A#2", "Bb2"]}
+        noteId={15}
       >
         {/* Bb/A# */}
       </FingerBoardTile>
@@ -51,7 +51,7 @@ const FingerBoard = ({
         currentNote={currentNote}
         showNames={showNames}
         handleNoteClick={handleNoteClick}
-        noteName={["F2"]}
+        noteId={22}
       >
         F
       </FingerBoardTile>
@@ -61,7 +61,7 @@ const FingerBoard = ({
         currentNote={currentNote}
         showNames={showNames}
         handleNoteClick={handleNoteClick}
-        noteName={["A1"]}
+        noteId={2}
         position="position"
       >
         A
@@ -72,7 +72,7 @@ const FingerBoard = ({
         currentNote={currentNote}
         showNames={showNames}
         handleNoteClick={handleNoteClick}
-        noteName={["E1"]}
+        noteId={9}
         position="position"
       >
         E
@@ -83,7 +83,7 @@ const FingerBoard = ({
         currentNote={currentNote}
         showNames={showNames}
         handleNoteClick={handleNoteClick}
-        noteName={["B2"]}
+        noteId={16}
         position="position"
       >
         B
@@ -94,7 +94,7 @@ const FingerBoard = ({
         currentNote={currentNote}
         showNames={showNames}
         handleNoteClick={handleNoteClick}
-        noteName={["F#2", "Gb2"]}
+        noteId={23}
         position="position"
       >
         {/* F#/Gb */}
@@ -105,7 +105,7 @@ const FingerBoard = ({
         currentNote={currentNote}
         showNames={showNames}
         handleNoteClick={handleNoteClick}
-        noteName={["A#1", "Bb1"]}
+        noteId={3}
       >
         {/* Bb/A# */}
       </FingerBoardTile>
@@ -115,7 +115,7 @@ const FingerBoard = ({
         currentNote={currentNote}
         showNames={showNames}
         handleNoteClick={handleNoteClick}
-        noteName={["F1"]}
+        noteId={10}
       >
         F
       </FingerBoardTile>
@@ -125,7 +125,7 @@ const FingerBoard = ({
         currentNote={currentNote}
         showNames={showNames}
         handleNoteClick={handleNoteClick}
-        noteName={["C2"]}
+        noteId={17}
       >
         C
       </FingerBoardTile>
@@ -135,7 +135,7 @@ const FingerBoard = ({
         currentNote={currentNote}
         showNames={showNames}
         handleNoteClick={handleNoteClick}
-        noteName={["G2"]}
+        noteId={24}
       >
         G
       </FingerBoardTile>
@@ -145,7 +145,7 @@ const FingerBoard = ({
         currentNote={currentNote}
         showNames={showNames}
         handleNoteClick={handleNoteClick}
-        noteName={["B1"]}
+        noteId={4}
       >
         B
       </FingerBoardTile>
@@ -155,7 +155,7 @@ const FingerBoard = ({
         currentNote={currentNote}
         showNames={showNames}
         handleNoteClick={handleNoteClick}
-        noteName={["F#1", "Gb1"]}
+        noteId={11}
       >
         {/* F#/Gb */}
       </FingerBoardTile>
@@ -164,7 +164,7 @@ const FingerBoard = ({
         currentNote={currentNote}
         showNames={showNames}
         handleNoteClick={handleNoteClick}
-        noteName={["C#2", "Db2"]}
+        noteId={18}
       >
         {/* C#/Db */}
       </FingerBoardTile>
@@ -174,7 +174,7 @@ const FingerBoard = ({
         currentNote={currentNote}
         showNames={showNames}
         handleNoteClick={handleNoteClick}
-        noteName={["G#2", "Ab3"]}
+        noteId={25}
       >
         {/* G#/Ab */}
       </FingerBoardTile>
@@ -184,7 +184,7 @@ const FingerBoard = ({
         currentNote={currentNote}
         showNames={showNames}
         handleNoteClick={handleNoteClick}
-        noteName={["C1"]}
+        noteId={5}
         position="position"
       >
         C
@@ -195,7 +195,7 @@ const FingerBoard = ({
         currentNote={currentNote}
         showNames={showNames}
         handleNoteClick={handleNoteClick}
-        noteName={["G1"]}
+        noteId={12}
         position="position"
       >
         G
@@ -206,7 +206,7 @@ const FingerBoard = ({
         currentNote={currentNote}
         showNames={showNames}
         handleNoteClick={handleNoteClick}
-        noteName={["D2"]}
+        noteId={19}
         position="position"
       >
         D
@@ -217,7 +217,7 @@ const FingerBoard = ({
         currentNote={currentNote}
         showNames={showNames}
         handleNoteClick={handleNoteClick}
-        noteName={["A3"]}
+        noteId={26}
         position="position"
       >
         A
@@ -228,7 +228,7 @@ const FingerBoard = ({
         currentNote={currentNote}
         showNames={showNames}
         handleNoteClick={handleNoteClick}
-        noteName={["C#1", "Db1"]}
+        noteId={6}
       >
         {/* C#/Db */}
       </FingerBoardTile>
@@ -238,7 +238,7 @@ const FingerBoard = ({
         currentNote={currentNote}
         showNames={showNames}
         handleNoteClick={handleNoteClick}
-        noteName={["G#1", "Ab2"]}
+        noteId={13}
       >
         {/* G#/Ab */}
       </FingerBoardTile>
@@ -248,7 +248,7 @@ const FingerBoard = ({
         currentNote={currentNote}
         showNames={showNames}
         handleNoteClick={handleNoteClick}
-        noteName={["Eb2", "D#2"]}
+        noteId={20}
       >
         {/* D#/Eb */}
       </FingerBoardTile>
@@ -258,7 +258,7 @@ const FingerBoard = ({
         currentNote={currentNote}
         showNames={showNames}
         handleNoteClick={handleNoteClick}
-        noteName={["A#3", "Bb3"]}
+        noteId={27}
       >
         {/* Bb/A# */}
       </FingerBoardTile>
@@ -268,7 +268,7 @@ const FingerBoard = ({
         currentNote={currentNote}
         showNames={showNames}
         handleNoteClick={handleNoteClick}
-        noteName={["D1"]}
+        noteId={7}
         position="position"
       >
         D
@@ -279,7 +279,7 @@ const FingerBoard = ({
         currentNote={currentNote}
         showNames={showNames}
         handleNoteClick={handleNoteClick}
-        noteName={["A2"]}
+        noteId={14}
         position="position"
       >
         A
@@ -290,7 +290,7 @@ const FingerBoard = ({
         currentNote={currentNote}
         showNames={showNames}
         handleNoteClick={handleNoteClick}
-        noteName={["E2"]}
+        noteId={21}
         position="position"
       >
         E
@@ -301,7 +301,7 @@ const FingerBoard = ({
         currentNote={currentNote}
         showNames={showNames}
         handleNoteClick={handleNoteClick}
-        noteName={["B3"]}
+        noteId={28}
         position="position"
       >
         B

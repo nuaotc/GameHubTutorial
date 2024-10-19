@@ -1,10 +1,10 @@
 interface Props {
   position?: string;
-  handleNoteClick: (noteName: string) => void; // Function to handle note clicks
-  incorrectNote: string | null; // The incorrect note for styling
-  currentNote: string;
+  handleNoteClick: (noteId: number) => void; // Function to handle note clicks
+  incorrectNote: number; // The incorrect note for styling
+  currentNote: number;
   showNames: boolean;
-  noteName: string[];
+  noteId: number;
   children?: string; // The current note to highlight
 }
 
@@ -14,7 +14,7 @@ const FingerBoardTile = ({
   incorrectNote,
   currentNote,
   showNames,
-  noteName,
+  noteId,
   children,
 }: Props) => {
   return (
@@ -22,13 +22,12 @@ const FingerBoardTile = ({
       <div className="partialString"></div>
       <button
         className="partialStringTop"
-        onClick={() => handleNoteClick(noteName[0])}
+        onClick={() => handleNoteClick(noteId)}
         style={{
           backgroundColor:
-            incorrectNote === noteName[0] || incorrectNote === noteName[1]
+            incorrectNote === noteId
               ? "rgba(226, 77, 77, 0.46)"
-              : (currentNote === noteName[0] || currentNote === noteName[1]) &&
-                showNames
+              : currentNote === noteId && showNames
               ? "rgba(130, 214, 138, 0.46)"
               : "",
         }}

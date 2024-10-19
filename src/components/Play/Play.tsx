@@ -18,12 +18,12 @@ function Play() {
   };
 
   const usePreloadAudioFiles = () => {
-    const audioFiles = useRef<{ [key: string]: HTMLAudioElement }>({});
+    const audioFiles = useRef<{ [key: number]: HTMLAudioElement }>({});
 
     useEffect(() => {
       notes.forEach((note: Note) => {
         // Preload the audio and store it in the ref object by the first name in the array
-        audioFiles.current[note.name[0]] = preloadAudio(note.file);
+        audioFiles.current[note.id] = preloadAudio(note.file);
       });
     }, []);
 
@@ -39,9 +39,8 @@ function Play() {
   const preloadedAudio = usePreloadAudioFiles();
 
   const [isPlaying, setIsPlaying] = useState(false);
-  const inputSequence = noteSequence;
   const [currentNoteIndex, setCurrentNoteIndex] = useState(0); // Tracks the correct note to click next
-  const [incorrectNote, setIncorrectNote] = useState<string | null>(null); // Tracks last incorrect note clicked
+  const [incorrectNote, setIncorrectNote] = useState(0); // Tracks last incorrect note clicked
   const [misses, setMisses] = useState(0);
 
   const [showNames, setShowNames] = useState(true); // Start with names visible
@@ -56,24 +55,32 @@ function Play() {
 
   const handleRefresh = () => {
     setCurrentNoteIndex(0);
-    setIncorrectNote(null);
+    setIncorrectNote(0);
     setMisses(0);
     setShowMsg(false);
   };
 
-  const getNoteImage = (note: string) => {
-    if (!note) {
+  const getNoteImage = (noteId: number) => {
+    const noteObj = notes.find((item) => item.id === noteId);
+    if (!noteObj) {
       return noteImagePlaceholder; // Return a placeholder image or handle the case when note is undefined/null
     }
-    const noteWithoutAccidental = note.replace("#", "").replace("b", ""); // Remove sharps/flats
+    const noteWithoutAccidental = noteObj.name[0]
+      .replace("#", "")
+      .replace("b", ""); // Remove sharps/flats
     return noteImages[noteWithoutAccidental as keyof typeof noteImages];
   };
 
-  const currentNote = inputSequence[currentNoteIndex];
+  const currentNoteObj = notes.find((note) =>
+    note.name.includes(noteSequence[currentNoteIndex])
+  );
+  const currentNote = currentNoteObj ? currentNoteObj.id : 0;
   const nextNote =
-    currentNoteIndex < inputSequence.length - 1
-      ? inputSequence[currentNoteIndex + 1]
-      : null;
+    currentNoteIndex < noteSequence.length - 1
+      ? notes.find((note) =>
+          note.name.includes(noteSequence[currentNoteIndex + 1])
+        )?.id
+      : 0;
 
   const getGrade = (misses: number) => {
     if (misses === 0) return "SSS";
@@ -86,44 +93,36 @@ function Play() {
   };
 
   // Function to handle when a note is clicked
-  const handleNoteClick = (noteName: string) => {
-    const correctNote = inputSequence[currentNoteIndex];
+  const handleNoteClick = (noteId: number) => {
+    const correctNote = notes.find((note) =>
+      note.name.includes(noteSequence[currentNoteIndex])
+    )?.id;
 
-    // Find the note that matches the clicked name
-    const noteToPlay = notes.find((note) => note.name.includes(noteName));
-
-    if (noteToPlay) {
-      const audio = preloadedAudio[noteToPlay.name[0]]; // Access preloaded audio by the first name
-      if (audio) {
-        audio.currentTime = 0; // Reset audio to the start
-        audio.play(); // Play the preloaded audio
-      }
+    const audio = preloadedAudio[noteId]; // Access preloaded audio by the first name
+    if (audio) {
+      audio.currentTime = 0; // Reset audio to the start
+      audio.play(); // Play the preloaded audio
     }
 
-    if (noteName === correctNote) {
-      setIncorrectNote(null);
-      if (currentNoteIndex < inputSequence.length - 1) {
+    if (noteId === correctNote) {
+      setIncorrectNote(0);
+      if (currentNoteIndex < noteSequence.length - 1) {
         setCurrentNoteIndex(currentNoteIndex + 1);
       } else {
         setCurrentNoteIndex(0);
         setShowMsg(true);
       }
     } else {
-      setIncorrectNote(noteName);
+      setIncorrectNote(noteId);
       setMisses(misses + 1); // Mark as incorrect
     }
   };
 
-  const playNote = (noteName: string) => {
-    // Find the note that matches the played name
-    const noteToPlay = notes.find((note) => note.name.includes(noteName));
-
-    if (noteToPlay) {
-      const audio = preloadedAudio[noteToPlay.name[0]]; // Access preloaded audio by the first name
-      if (audio) {
-        audio.currentTime = 0; // Reset audio to the start
-        audio.play(); // Play the preloaded audio
-      }
+  const playNote = (noteId: number) => {
+    const audio = preloadedAudio[noteId]; // Access preloaded audio by the first name
+    if (audio) {
+      audio.currentTime = 0; // Reset audio to the start
+      audio.play(); // Play the preloaded audio
     }
   };
 
@@ -142,9 +141,14 @@ function Play() {
     let index = 0; // Local index for autoplay
 
     intervalRef.current = setInterval(() => {
-      if (index < inputSequence.length) {
+      if (index < noteSequence.length) {
         setCurrentNoteIndex(index); // Update the current note index
-        playNote(inputSequence[index]); // Play the current note
+        const currentNoteObj = notes.find((note) =>
+          note.name.includes(noteSequence[index])
+        );
+        if (currentNoteObj) {
+          playNote(currentNoteObj.id); // Play the note if found
+        }
         index++; // Move to the next note
       } else {
         stopAutoplay(); // Stop autoplay once all notes are played
@@ -157,7 +161,7 @@ function Play() {
     if (isPlaying) {
       stopAutoplay(); // Stop the autoplay if it's currently playing
     } else {
-      setIncorrectNote(null);
+      setIncorrectNote(0);
       setIsPlaying(true); // Start autoplay
       startAutoplay(); // Call the function to start the sequence
     }
@@ -224,13 +228,13 @@ function Play() {
 
           <img
             src={getNoteImage(currentNote)}
-            alt={`Current note: ${currentNote}`}
+            alt={`Current note: ${currentNoteObj?.name}`}
             style={{ opacity: 1 }} // Current note fully visible
           />
           {nextNote ? (
             <img
               src={getNoteImage(nextNote)}
-              alt={`Next note: ${nextNote}`}
+              alt={`Next note: ${noteSequence[currentNoteIndex + 1]}`}
               style={{ opacity: 0.3 }} // Dimming the next note
             />
           ) : (
@@ -252,7 +256,7 @@ function Play() {
         <FingerBoard
           handleNoteClick={handleNoteClick}
           incorrectNote={incorrectNote}
-          currentNote={inputSequence[currentNoteIndex]}
+          currentNote={currentNote}
           showNames={showNames}
         />
       </GridItem>
