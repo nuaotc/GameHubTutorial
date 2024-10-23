@@ -12,11 +12,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
 import { useNavigate } from "react-router-dom";
+import musicLevels from "../Browse/data/musicLevels";
 
 //install zod: npm i zod
 //install a resolver to integrate react hook forms with zod: npm i @hookform/resolvers
 
-const levels = ["Beginner", "Intermediate", "Master"] as const;
+//z.enum requires a tuple-like array where the first element is guaranteed
+//need to assert the array type as a tuple with at least one element.
+const levels = musicLevels.map((level) => level.name) as [string, ...string[]];
 
 //if form gets more complex, end up with a lot of validation rules all over the place
 //zod library offers schema based validation (shape of the form, basically field value type), I can define all the validation rules in one place
@@ -26,11 +29,11 @@ const levels = ["Beginner", "Intermediate", "Master"] as const;
 //properties represent the form fields, validation rules added using the chaining method
 //within the rules, error messages can also be customised, or leave blank to use the default
 
-//lecturer's suggestion: I made the form static, everything will show in reserved places, no change in page height
+//lecturer's suggested to make the form static, so I moved error message next to form labels, which has reserved space for display, thus no change in page height when hide and show
 const schema = z.object({
   name: z
     .string()
-    .min(2, "Name at least 2 characters") // Ensures the name field is not empty
+    .min(2, "Name at least 2 characters")
     .regex(/^[A-Za-z]+$/, "Name should only contain A to Z"),
   age: z
     .number({
@@ -49,12 +52,13 @@ const schema = z.object({
 });
 
 //z has a method that extracts the type from a schema logic similar to an interface
-//the properties I just defined in the schema will be the FormData
+//the properties I just defined in the schema will be the FormData when calling useForm
 type FormData = z.infer<typeof schema>;
 
 const ContactForm = () => {
   const navigate = useNavigate(); // This is for navigating to the response page on submit
 
+  //deconstruct the required functions from useForm hook
   const {
     register,
     handleSubmit,
@@ -73,7 +77,7 @@ const ContactForm = () => {
   //so can customise the error message for the type of the age input to tell user the field can not be empty
 
   //error renders all error messages defined in the schema dynamically depends of error type
-  //so no need to write hard coded display message for every validation rules under input
+  //so no need to write display message for every validation rules under input
   // isInvalid={!!errors.age} !! not not true, if error.age is not null, returns true
   return (
     <Box marginY={10} marginX={{ base: 10, lg: 200, xl: 400 }}>
