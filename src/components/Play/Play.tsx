@@ -83,21 +83,6 @@ function Play() {
     setShowMsg(false);
   };
 
-  // fetch the staff note image by the note id
-  // first find the note by note id, if not found, return the empty staff image
-  // trim the sharps and minors off a note name
-  // fetch the staff image by the trimmed note name (image key)
-  const getNoteImage = (noteId: number) => {
-    const noteObj = notes.find((item) => item.id === noteId);
-    if (!noteObj) {
-      return noteImagePlaceholder; // Return a placeholder image or handle the case when note is undefined/null
-    }
-    const noteWithoutAccidental = noteObj.name[0]
-      .replace("#", "")
-      .replace("b", ""); // Remove sharps/flats
-    return noteImages[noteWithoutAccidental as keyof typeof noteImages];
-  };
-
   // find the note in notes of the current note in the sequence by note index
   const currentNoteObj = notes.find((note) =>
     note.name.includes(noteSequence[currentNoteIndex])
@@ -106,14 +91,18 @@ function Play() {
   // get the current note id and store in currentNote
   const currentNote = currentNoteObj ? currentNoteObj.id : 0;
 
-  // if current note index is the last index of the note sequence, next note index set to 0, otherwise set to note id at next index in the sequence
-  // the staff note image id starts with 1, 0 will return the empty staff place holder, user will know current note is the last note to play
-  const nextNote =
-    currentNoteIndex < noteSequence.length - 1
-      ? notes.find((note) =>
-          note.name.includes(noteSequence[currentNoteIndex + 1])
-        )?.id
-      : 0;
+  // fetch the note name from note sequence by the index
+  // trim the sharps and minors off a note name
+  // fetch the staff image by the trimmed note name (image key)
+  const getNoteImage = (anIndex: number) => {
+    if (anIndex >= noteSequence.length) {
+      return noteImagePlaceholder;
+    }
+    const noteWithoutAccidental = noteSequence[anIndex]
+      .replace("#", "") // removes sharp
+      .replace("b", ""); // Removes flat
+    return noteImages[noteWithoutAccidental as keyof typeof noteImages];
+  };
 
   // grading system by number of misses
   const getGrade = (misses: number) => {
@@ -248,31 +237,21 @@ function Play() {
         <HStack spacing={0}>
           <img
             src={keyImg}
-            alt={`Key signature: ${keySignature}`}
             style={{ opacity: 0.3 }} // Dimming the previous note
           />
 
           <img
-            src={getNoteImage(currentNote)}
-            alt={`Current note: ${currentNoteObj?.name}`}
+            src={getNoteImage(currentNoteIndex)}
             style={{ opacity: 1 }} // Current note fully visible
           />
-          {nextNote ? (
-            <img
-              src={getNoteImage(nextNote)}
-              alt={`Next note: ${noteSequence[currentNoteIndex + 1]}`}
-              style={{ opacity: 0.3 }} // Dimming the next note
-            />
-          ) : (
-            <img
-              src={noteImagePlaceholder}
-              alt="Empty"
-              style={{ opacity: 0.3 }}
-            />
-          )}
+
+          <img
+            src={getNoteImage(currentNoteIndex + 1)}
+            style={{ opacity: 0.3 }} // Dimming the next note
+          />
+
           <img
             src={endStaff}
-            alt="Empty staff"
             style={{ opacity: 0.3 }} // Dimming the previous note
           />
         </HStack>
