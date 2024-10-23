@@ -18,6 +18,9 @@ import imgG0 from "../../../assets/staves/g0.png";
 import imgG1 from "../../../assets/staves/g1.png";
 import imgG2 from "../../../assets/staves/g2.png";
 
+// notes on staff
+// same size and background but different note position
+// scalable, if want to add sixteenth, eighth, double and whole note variation to enable rythm/beat in the future, can add more images
 const noteImages = {
   A1: imgA1,
   A2: imgA2,

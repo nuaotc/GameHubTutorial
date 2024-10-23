@@ -13,22 +13,20 @@ import { FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
 import { useNavigate } from "react-router-dom";
 
+//install zod: npm i zod
+//install a resolver to integrate react hook forms with zod: npm i @hookform/resolvers
+
 const levels = ["Beginner", "Intermediate", "Master"] as const;
 
-//with z, I can define all the validation rules in one place
+//if form gets more complex, end up with a lot of validation rules all over the place
+//zod library offers schema based validation (shape of the form, basically field value type), I can define all the validation rules in one place
 //Define the shape of the form, so that react knows the properties of expected returning values
 //so when calling useForm hook can pass this FormData so the autocompletion will work when accesing error properties
-// version four: react hook form zod method: npm i zod
-//if form gets more complex, end up with a lot of validation rules all over the place
-//zod library offers schema based validation which basically means define all of the validation in a single place
-//install a resolver to integrate react hook forms with zod npm i @hookform/resolvers
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-//using z to define the shape or scheme of the form and all the validation rules
 //zod provides default error messages based on the type, but its easy to customized them right where I defined the type
 //properties represent the form fields, validation rules added using the chaining method
 //within the rules, error messages can also be customised, or leave blank to use the default
 
-//As per lecturer's request, I made the form static, everything will show in reserved places, no change in page height
+//lecturer's suggestion: I made the form static, everything will show in reserved places, no change in page height
 const schema = z.object({
   name: z
     .string()
@@ -55,12 +53,8 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 const ContactForm = () => {
-  const navigate = useNavigate(); // Hook to programmatically navigate
+  const navigate = useNavigate(); // This is for navigating to the response page on submit
 
-  //inorder to use this zod schema with useForm from react hook form, need to install a zod resolver
-  //isValid stores whether the form is valid or not, button can be disabled depend on this property
-  //WARNING: error message won't show! only shows when try to submit but is disabled to start with
-  //formstate isvalid stores wether the form input passes all the validation rules, can be used to disable button if false
   const {
     register,
     handleSubmit,
@@ -68,21 +62,19 @@ const ContactForm = () => {
   } = useForm<FormData>({ resolver: zodResolver(schema) });
   //pass a configuration object using the zod resolver to resolve the zod schema object
 
-  //storing user data in local storage
   const onSubmit = (data: FieldValues) => {
-    // Navigate to the response page and pass the user's name
+    // Navigate to the response page and pass the user's name in the state
     navigate("/contactFormResponse", { state: { name: data.name } });
   };
 
-  //the input property always returns a string, need to instruct react form to interpret the age input as number
-  //other wise the type error will always be triggered
+  //the input property always returns a string, need to instruct react form to interpret the age input as number { valueAsNumber: true }
+  //otherwise the type error will always be triggered
   //but the initial value is empty string and if nothing is provided will result the value not a valid number (NAN)
   //so can customise the error message for the type of the age input to tell user the field can not be empty
 
   //error renders all error messages defined in the schema dynamically depends of error type
-  //so no need to write hard coded display message for every validation rules
-  //
-
+  //so no need to write hard coded display message for every validation rules under input
+  // isInvalid={!!errors.age} !! not not true, if error.age is not null, returns true
   return (
     <Box marginY={10} marginX={{ base: 10, lg: 200, xl: 400 }}>
       <Text fontSize={20} mb={5} color={"blue.300"}>
@@ -106,7 +98,7 @@ const ContactForm = () => {
             type="text"
             autoComplete="off"
             focusBorderColor="blue.300"
-            backgroundColor={"gray.700"}
+            backgroundColor={"gray.600"}
             mt={1}
           />
         </FormControl>
@@ -128,7 +120,7 @@ const ContactForm = () => {
             type="number"
             autoComplete="off"
             focusBorderColor="blue.300"
-            backgroundColor={"gray.700"}
+            backgroundColor={"gray.600"}
             mt={1}
           />
         </FormControl>
@@ -148,9 +140,8 @@ const ContactForm = () => {
             {...register("email")}
             id="email"
             type="email"
-            autoComplete="off"
             focusBorderColor="blue.300"
-            backgroundColor={"gray.700"}
+            backgroundColor={"gray.600"}
             mt={1}
           />
         </FormControl>
@@ -171,7 +162,7 @@ const ContactForm = () => {
             id="level"
             placeholder="Select level"
             focusBorderColor="blue.300"
-            backgroundColor={"gray.700"}
+            backgroundColor={"gray.600"}
             mt={1}
           >
             {levels.map((level) => (
@@ -198,7 +189,7 @@ const ContactForm = () => {
             id="request"
             placeholder="Tell us anything!"
             focusBorderColor="blue.300"
-            backgroundColor={"gray.700"}
+            backgroundColor={"gray.600"}
             mt={1}
           />
         </FormControl>

@@ -5,9 +5,13 @@ import homePic from "../assets/home.png";
 import musics from "./Browse/data/musics";
 import { Music } from "./Browse/MusicCard";
 
+// Play demo will pass a simple tune to the play component for user to try it out
+// image and buttons align vertically in the center, without other distractions, so user can focus here
+// two buttons align horizontally
 const Home = () => {
   const tryMusic: Music =
-    musics.find((item) => item.name === "Mary Had a Little Lamb") ?? musics[0];
+    musics.find((item) => item.name === "Twinkle, Twinkle, Little Star") ??
+    musics[0];
 
   return (
     <VStack mx={"auto"} mt={10}>
@@ -16,6 +20,7 @@ const Home = () => {
         maxWidth={{ base: "250px", sm: "300px", md: "450px" }}
         mx="auto"
         marginTop={10}
+        alt="violin silhouette site image"
       />
       <HStack mt={10}>
         <Link
@@ -31,7 +36,7 @@ const Home = () => {
             fontWeight={"bold"}
             _hover={{ bg: "white" }}
           >
-            Play now
+            Play Demo
           </Button>
         </Link>
         <Link to="/browse">
@@ -41,7 +46,7 @@ const Home = () => {
             fontWeight={"bold"}
             _hover={{ bg: "white" }}
           >
-            Browse collection
+            Browse Collection
           </Button>
         </Link>
       </HStack>

@@ -1,5 +1,6 @@
 import { HStack, Switch, Text } from "@chakra-ui/react";
 
+// toggles the showName state, state then passed to tile component and display name will be hidden or shown accordingly
 interface Props {
   toggleNames: () => void;
   showNames: boolean;

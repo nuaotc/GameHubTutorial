@@ -10,6 +10,7 @@ import ContactForm from "./components/Contact/ContactForm";
 import ContactFormResponse from "./components/Contact/ContactFormResponse";
 
 function App() {
+  // When user scrolls down, the scrolling state is set to true to display the to-top button
   const [isScrolling, setScrolling] = useState(false);
   window.addEventListener("scroll", function () {
     if (this.window.scrollY > 100) {
@@ -19,6 +20,7 @@ function App() {
     }
   });
 
+  // handles when to-top button is clicked
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -26,9 +28,7 @@ function App() {
     });
   };
 
-  // Top level page has 1 col 2 rows on all devices
-  // Row 1 holds the main menu for navigating beween home play browse and buy pages
-  // Row 2 holds the dynamic components of the above 4 pages using react router
+  // top frame / main layout is 1 col 2 rows, first row being the fixed nav bar, second being the component/page area renders dynamically responds to user's click on the nav links
   return (
     <Grid
       templateAreas={{
@@ -39,7 +39,7 @@ function App() {
         className="stickyNav"
         area="nav"
         display="flex"
-        justifyContent={"space-between"}
+        justifyContent={"space-between"} // justify the two elements in a stack or flex box, 1st element aligh to the left side, second align to the right side
         alignItems={"center"}
       >
         <NavBarMain />
@@ -53,7 +53,7 @@ function App() {
           <Route path="/contact" element={<ContactForm />} />
           <Route
             path="/contactFormResponse"
-            element={<ContactFormResponse />}
+            element={<ContactFormResponse />} // to use these routes, just import link or navigation from react route, enclose any buttons or images in <Link>, and pass other properties
           />
         </Routes>
         <Button
@@ -62,7 +62,7 @@ function App() {
           right="5"
           color="black"
           background={"blue.300"}
-          position={"fixed"}
+          position={"fixed"} // fixed to the bottom right corner
           display={isScrolling ? "block" : "none"}
           fontWeight={"bold"}
           fontSize={"x-large"}

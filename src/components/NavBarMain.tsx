@@ -1,4 +1,4 @@
-import { Image } from "@chakra-ui/react";
+import { Image, Text } from "@chakra-ui/react";
 import logo from "../assets/logo.png";
 import { ReactNode } from "react";
 import { Link, useMatch, useResolvedPath } from "react-router-dom";
@@ -13,13 +13,14 @@ function CustomLink({ to, children, ...props }: Props) {
   //gives the actuall full path for accessing
   const resolvedPath = useResolvedPath(to);
 
-  //entire path must match instead of partial match
+  //entire path must match instead of partial match (main/shop != main/cart)
   const isActive = useMatch({ path: resolvedPath.pathname, end: true });
 
+  //if match, set the active state to trueso that activenav class styling will be applied to the active link
   return (
     <li className={isActive ? "activeNav" : ""}>
       <Link to={to} {...props}>
-        {children}
+        <Text fontSize="2xl">{children}</Text>
       </Link>
     </li>
   );

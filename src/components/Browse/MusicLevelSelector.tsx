@@ -13,9 +13,11 @@ interface Props {
 }
 
 const MusicLevelSelector = ({ onSelectLevel, selectedLevel }: Props) => {
+  // offer an "all" option reverts the selection back to show all music
+  // offers user the convenience to not need to click back button or refresh the page
   return (
     <Menu>
-      <MenuButton as={Button} rightIcon={<BsChevronDown />}>
+      <MenuButton fontSize="lg" as={Button} rightIcon={<BsChevronDown />}>
         {selectedLevel?.name || "Level"}
       </MenuButton>
       <MenuList>

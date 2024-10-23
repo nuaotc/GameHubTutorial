@@ -16,6 +16,9 @@ import { IconType } from "react-icons";
 import "./MusicCard.css";
 import { Link } from "react-router-dom";
 
+// Define Music object and export it so that other component can use it
+// Data is passed from consumer component in object format (datalist mapping each data item as Music object)
+// The values can be directly accessed (music.name, music.image etc)
 export interface Music {
   id: number;
   name: string;
@@ -28,16 +31,22 @@ export interface Music {
   notes: string[];
 }
 
+// The component takes a parameter of Music type
 interface Props {
   music: Music;
 }
 
+// Dictionary of key and value pair to correct load the icons mapping icon key to icon location
 const iconMap: { [key: number]: IconType } = {
   1: BsStar,
   2: BsStarHalf,
   3: BsStarFill,
 };
 
+// Accepts Music object from consumer component
+// Defines method to handle the click event of toggle button to show an hide content
+// VStack is vertically stacking the wrpped elements
+// HStack is horizontally stacking the wrapped elements
 const MusicCard = ({ music }: Props) => {
   const [show, setShow] = React.useState(false);
 
@@ -58,7 +67,7 @@ const MusicCard = ({ music }: Props) => {
         </Link>
       </div>
       <CardBody>
-        <Heading marginBottom={3} fontSize="xl">
+        <Heading marginBottom={3} fontSize="2xl">
           {music.name}
         </Heading>
 

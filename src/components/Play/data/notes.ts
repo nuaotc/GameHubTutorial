@@ -33,7 +33,9 @@ import noteA3 from "../../../assets/audio/notes/26A3.m4a";
 import noteBb3 from "../../../assets/audio/notes/27B3b.m4a";
 import noteB3 from "../../../assets/audio/notes/28B3.m4a";
 
-//two names for enharmonics
+//two names for enharmonics : A minor and G sharp are the same note
+//when uploading new music, the only one version of the note name will be in the sequence which will be compared to get the note id
+//depend on the key signature, the name used will be different, this is a scalable aproach, if future development allows user to uploading their own music will make it easier for them
 export const notes: Note[] = [
   { id: 1, name: ["Ab1", "G#0"], file: noteAb1 },
   { id: 2, name: ["A1"], file: noteA1 },

@@ -5,12 +5,12 @@
 
 .image {
   display: block;
-  width: 100%; /* Adjust as needed */
+  width: 100%;
   transition: opacity 0.5s ease;
 }
 
 .image-container:hover .image {
-  opacity: 0.2; /* Dimming effect */
+  opacity: 0.2;
 }
 
 .overlay {

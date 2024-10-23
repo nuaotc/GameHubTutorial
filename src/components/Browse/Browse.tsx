@@ -26,7 +26,7 @@ function Browse() {
   const [musicQuery, setMusicQuery] = useState<MusicQuery>({} as MusicQuery);
 
   //to properly align components, wrap them in a parent box or container, change the padding there
-  //instead of apply padding to each component, that way when we need to make changes in the future, only need to change one place
+  //instead of apply padding to each component, that way when need to make changes in the future, only need to change in one place
   return (
     <Grid
       templateAreas={{
@@ -72,8 +72,6 @@ function Browse() {
               onSearch={(searchText) =>
                 setMusicQuery({ ...musicQuery, searchText })
               }
-              // Full width on small screens, auto on larger
-              // Add space when stacked vertically
             />
           </Flex>
 

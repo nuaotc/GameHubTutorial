@@ -13,6 +13,9 @@ export interface KeySignature {
   file: string;
 }
 
+// Music object has a key property, so that when passed to the play component, key signature name can be compared and load the image file
+// The scale was for another function which I had in mind but didn't finish, I wanted user to click the key image and corresponding scale plays. I left here for future development
+
 export const keys: KeySignature[] = [
   {
     id: 1,

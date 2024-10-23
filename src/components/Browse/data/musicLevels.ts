@@ -1,3 +1,4 @@
+// List of music levels, to be used for level selector on BROWSE page
 export default [
   {
     id: 1,

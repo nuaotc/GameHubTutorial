@@ -43,6 +43,7 @@ const MusicGenreList = ({
   //default whitespace (textwrap) for button is no wrap
   //objectFit="cover" with this image will be scaled to fit the container while preserving aspect ratio
 
+  // change the selected selection after selected by user gives instant feedback and reminds user of last selection when making next selection
   if (!isCollapse)
     return (
       <>
@@ -100,9 +101,9 @@ const MusicGenreList = ({
     );
 
   return (
-    //first listItem is for showing all genre, user doesn't need to refresh the page or go back to reverse selection
+    //first listItem <All> is for showing all genre, user doesn't need to refresh the page or go back to reverse selection
     <>
-      <Button marginTop={7} marginBottom={2} onClick={onToggle}>
+      <Button fontSize="lg" marginTop={7} marginBottom={2} onClick={onToggle}>
         Genres
       </Button>
       <Collapse in={isOpen} animateOpacity>

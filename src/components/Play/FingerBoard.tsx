@@ -3,11 +3,13 @@ import FingerBoardTile from "./FingerBoardTile";
 
 interface Props {
   handleNoteClick: (noteId: number) => void; // Function to handle note clicks
-  incorrectNote: number; // The incorrect note for styling
-  currentNote: number;
-  showNames: boolean;
+  incorrectNote: number; // Note clicked passed to the play component gets compared with current note then passed back to as The incorrect note for styling background to red
+  currentNote: number; // correct note style background to green
+  showNames: boolean; // toggle hint on/off
 }
 
+// the tile is positioned flex flow horizontally, each row 4 tiles, 7 rows, different note is assigned to each tile button by its id to position the notes correctly on fingerboard
+// display name is passed as the children
 const FingerBoard = ({
   handleNoteClick,
   incorrectNote,

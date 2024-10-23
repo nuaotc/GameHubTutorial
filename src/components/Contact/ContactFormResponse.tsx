@@ -4,6 +4,9 @@ import { useLocation } from "react-router-dom";
 import "./ContactFormResponse.css";
 
 const ContactFormResponse = () => {
+  // useLocation works with useNavigate in the contact form
+  // name property value can be accessed from location state
+  // gives user instant feedback with a little animation to add some fun to the page
   const location = useLocation();
   const { name } = location.state;
   return (

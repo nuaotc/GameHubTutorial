@@ -4,6 +4,7 @@ import pop from "../../../assets/musicGenreIcons/pop.png";
 import soundtrack from "../../../assets/musicGenreIcons/soundtrack.png";
 import lullaby from "../../../assets/musicGenreIcons/lullaby.png";
 
+// List of Genre objects, icon files imported from local, stored as a string, to be used for Genre list (filter) on BROWSE page
 export default [
   {
     id: 1,

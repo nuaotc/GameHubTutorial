@@ -3,6 +3,12 @@ import { MdReplay } from "react-icons/md";
 import HintSwitch from "./HintSwitch";
 import { FaPlay, FaStop } from "react-icons/fa";
 
+// game controls
+// event handle functions and states passed from play component
+// showName state continue passes to toggle switch
+// universal icons for play, stop and refresh are imported from react-icon, saves space than text on button, and easy to understand, mobile friendly
+// state of isPlaying determines the display of play or stop
+
 interface Props {
   toggleNames: () => void;
   showNames: boolean;

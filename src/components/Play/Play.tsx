@@ -11,48 +11,71 @@ import "./Play.css";
 import { keys } from "./data/keys";
 
 function Play() {
+  // preload the audio object by its file string
   const preloadAudio = (src: string) => {
     const audio = new Audio(src);
-    audio.preload = "auto"; // Preload the audio file
+    audio.preload = "auto";
     return audio;
   };
 
   const usePreloadAudioFiles = () => {
+    // creating a ref using React's useRef hook to store an object that maps number ids (as keys) to audio objects (as values)
+    // useRef do not cause rerender like useState
+    // multiple audio elements can be accessed and controlled independently by their id
     const audioFiles = useRef<{ [key: number]: HTMLAudioElement }>({});
 
+    // on first load, audio file of each note in notes are preloaded and stored in the ref object in id and audio pairs
     useEffect(() => {
       notes.forEach((note: Note) => {
-        // Preload the audio and store it in the ref object by the first name in the array
         audioFiles.current[note.id] = preloadAudio(note.file);
       });
     }, []);
 
-    return audioFiles.current; // Return preloaded audio files
+    // Return preloaded audio files
+    return audioFiles.current;
   };
 
+  // retrive the note data stored in location state passed from other pages
   const location = useLocation();
   const { noteSequence = [], keySignature = "" } = location.state as {
     noteSequence: string[];
     keySignature: string;
   };
 
+  // call audiopreload funcion and store preloaded audios in preloadedAudio
   const preloadedAudio = usePreloadAudioFiles();
 
+  // tracks autoplay state toggles button play/stop
   const [isPlaying, setIsPlaying] = useState(false);
-  const [currentNoteIndex, setCurrentNoteIndex] = useState(0); // Tracks the correct note to click next
-  const [incorrectNote, setIncorrectNote] = useState(0); // Tracks last incorrect note clicked
+
+  // current note index in the note sequence, starting from 0
+  // increment by 1 when user clicks the correct notev which is the note at the current index of sequence, or after auto played the note
+  // reset after finished the note sequence or by refresh button
+  const [currentNoteIndex, setCurrentNoteIndex] = useState(0);
+
+  // if clicked note not equal to the correct note id, id will be recorded here, the fingerboard tile with the same id will change the background to red
+  // reset at the end of sequence, or by refresh button
+  const [incorrectNote, setIncorrectNote] = useState(0);
+
+  // misses increment by 1 whenever an incorrect note is set
+  // reset by the refresh button
   const [misses, setMisses] = useState(0);
 
-  const [showNames, setShowNames] = useState(true); // Start with names visible
+  // hint toggle swich depend on this state to turn hint on or off (note names on the strings)
+  const [showNames, setShowNames] = useState(true);
+
+  // notify the text element to show message animation, after user finished playing the sequence, the grade message shows, set to false on refresh
   const [showMsg, setShowMsg] = useState(false);
 
+  // managing an interval timer with useRef to store the interval ID, for set length between each note play and reference each interval for clearing it
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // Toggle hint switch
+  // function handles click event of the hint switch
   const toggleNames = () => {
     setShowNames((prev) => !prev);
   };
 
+  // function handles click event of the refresh button
   const handleRefresh = () => {
     setCurrentNoteIndex(0);
     setIncorrectNote(0);
@@ -60,6 +83,10 @@ function Play() {
     setShowMsg(false);
   };
 
+  // fetch the staff note image by the note id
+  // first find the note by note id, if not found, return the empty staff image
+  // trim the sharps and minors off a note name
+  // fetch the staff image by the trimmed note name (image key)
   const getNoteImage = (noteId: number) => {
     const noteObj = notes.find((item) => item.id === noteId);
     if (!noteObj) {
@@ -71,10 +98,16 @@ function Play() {
     return noteImages[noteWithoutAccidental as keyof typeof noteImages];
   };
 
+  // find the note in notes of the current note in the sequence by note index
   const currentNoteObj = notes.find((note) =>
     note.name.includes(noteSequence[currentNoteIndex])
   );
+
+  // get the current note id and store in currentNote
   const currentNote = currentNoteObj ? currentNoteObj.id : 0;
+
+  // if current note index is the last index of the note sequence, next note index set to 0, otherwise set to note id at next index in the sequence
+  // the staff note image id starts with 1, 0 will return the empty staff place holder, user will know current note is the last note to play
   const nextNote =
     currentNoteIndex < noteSequence.length - 1
       ? notes.find((note) =>
@@ -82,6 +115,7 @@ function Play() {
         )?.id
       : 0;
 
+  // grading system by number of misses
   const getGrade = (misses: number) => {
     if (misses === 0) return "SSS";
     if (misses === 1) return "SS";
@@ -92,19 +126,31 @@ function Play() {
     return "Fail"; // 6 or more misses
   };
 
+  // function to play the note audio
+  const playNote = (noteId: number) => {
+    // Access note's audio from preloaded audio by the note id
+    const audio = preloadedAudio[noteId];
+
+    // If audio found, play audio from start
+    if (audio) {
+      audio.currentTime = 0;
+      audio.play();
+    }
+  };
+
   // Function to handle when a note is clicked
   const handleNoteClick = (noteId: number) => {
-    const correctNote = notes.find((note) =>
-      note.name.includes(noteSequence[currentNoteIndex])
-    )?.id;
+    // call the function to play the note audio
+    playNote(noteId);
 
-    const audio = preloadedAudio[noteId]; // Access preloaded audio by the first name
-    if (audio) {
-      audio.currentTime = 0; // Reset audio to the start
-      audio.play(); // Play the preloaded audio
-    }
-
-    if (noteId === correctNote) {
+    // If clicked note equal to the current note (correct note):
+    // clears the incorrect note
+    // if clicked note is before the last note in the sequence, increment current index by 1
+    // other wise reset current index to 0 (back to the start of the sequence)
+    // also show the grade message to notify user has finished the tune
+    // if clicked note not equal to the current note:
+    // set incorrect note to be the clicked note, increment misses by 1
+    if (noteId === currentNote) {
       setIncorrectNote(0);
       if (currentNoteIndex < noteSequence.length - 1) {
         setCurrentNoteIndex(currentNoteIndex + 1);
@@ -118,42 +164,54 @@ function Play() {
     }
   };
 
-  const playNote = (noteId: number) => {
-    const audio = preloadedAudio[noteId]; // Access preloaded audio by the first name
-    if (audio) {
-      audio.currentTime = 0; // Reset audio to the start
-      audio.play(); // Play the preloaded audio
-    }
-  };
-
-  // Function to stop the interval and reset the current note index
+  // Function to stop the autoplay
   const stopAutoplay = () => {
+    // intervalRef is a reference that holds the ID of the interval returned by setInterval
+    // if an active interval exists, id will be passed to the clearInterval function to clear the interval which stops it execute at regular intervals
+    // set current interval to null means no longer have a reference to the cleared interval.
+    // it prevents any subsequent calls to this code from trying to clear an already cleared or non-existent interval.
     if (intervalRef.current) {
-      clearInterval(intervalRef.current); // Clear the interval
-      intervalRef.current = null; // Reset the interval reference
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
     }
-    setIsPlaying(false); // Stop the autoplay
-    setCurrentNoteIndex(0); // Reset the note index to 0
+
+    // change the stop icon to play icon again on the button
+    setIsPlaying(false);
+
+    // reset the index to 0
+    setCurrentNoteIndex(0);
   };
 
   // Function to start the autoplay using setInterval
   const startAutoplay = () => {
-    let index = 0; // Local index for autoplay
+    // Local index for autoplay
+    let index = 0;
 
+    // setInterval is a built-in JavaScript function that repeatedly executes a function after a specified time delay
+    // setInterval returns an interval ID stored in intervalRef.current which can later be used to clear the interval
     intervalRef.current = setInterval(() => {
+      // if local index less than the sequence length
       if (index < noteSequence.length) {
-        setCurrentNoteIndex(index); // Update the current note index
+        // Update the current note index (autoplay starts the sequence from index 0, reset user's previous play index)
+        setCurrentNoteIndex(index);
+
+        // find the corresponding note in the notes
         const currentNoteObj = notes.find((note) =>
           note.name.includes(noteSequence[index])
         );
+
+        // if found, play the note audio
         if (currentNoteObj) {
-          playNote(currentNoteObj.id); // Play the note if found
+          playNote(currentNoteObj.id);
         }
-        index++; // Move to the next note
+
+        // increment local index by 1, move to the next note
+        index++;
       } else {
-        stopAutoplay(); // Stop autoplay once all notes are played
+        // Stop autoplay once all notes are played
+        stopAutoplay();
       }
-    }, 500); // Set the interval to 500ms between notes
+    }, 500); // Set the delay of execution to 500 milliseconds meaning 0.5 seconds between notes
   };
 
   // Toggle autoplay when the button is clicked
@@ -161,9 +219,9 @@ function Play() {
     if (isPlaying) {
       stopAutoplay(); // Stop the autoplay if it's currently playing
     } else {
-      setIncorrectNote(0);
-      setIsPlaying(true); // Start autoplay
-      startAutoplay(); // Call the function to start the sequence
+      setIncorrectNote(0); // Clear previous incorrect note user clicked during play
+      setIsPlaying(true); // Set state to true changes the button icon to stop
+      startAutoplay(); // Call the function to start the autoplay
     }
   };
 
@@ -174,50 +232,18 @@ function Play() {
     };
   }, []);
 
+  // finding the key from keys by name
   const key = keys.find((key) => key.name === keySignature);
+  // fetch the key signature image
   const keyImg = key?.file;
 
-  // Returns true if the note is the current one to guess
-  // const isCurrentNote = (noteName: string) => {
-  //   return inputSequence[currentNoteIndex] === noteName;
-  // };
-
+  // displays game panel in 1 col, 3 rows
+  // staff image in row 1, fingerboard in row 2, control and message area in row 3
   return (
     <Grid
       templateAreas={`"staff" "fingerBoard" "control"`}
       templateColumns="1fr"
     >
-      <GridItem area="control" mt={5} mx={"auto"} width="16rem">
-        <Control
-          refresh={handleRefresh}
-          toggleNames={toggleNames}
-          showNames={showNames}
-          autoPlay={handleAutoplay}
-          isPlaying={isPlaying}
-        />
-
-        <Text mt={2} fontSize="18px" color="gray.500" textAlign="center">
-          Misses: {misses}
-        </Text>
-
-        {showMsg && (
-          <Text
-            mt={2}
-            className={`msg ${showMsg ? "active" : ""}`}
-            color={"blue.300"}
-            textAlign={"center"}
-            fontSize="30px"
-            fontWeight={"bold"}
-            border={showMsg ? "2px dashed" : "none"}
-            borderColor="blue"
-            animation={showMsg ? "rainbowDash 1.5s linear infinite" : "none"}
-            sx={{ padding: "5px", borderRadius: "8px" }}
-          >
-            Grade: {getGrade(misses)}
-          </Text>
-        )}
-      </GridItem>
-
       <GridItem area="staff" mx={"auto"} mt={5}>
         <HStack spacing={0}>
           <img
@@ -259,6 +285,37 @@ function Play() {
           currentNote={currentNote}
           showNames={showNames}
         />
+      </GridItem>
+
+      <GridItem area="control" mt={5} mx={"auto"} width="16rem">
+        <Control
+          refresh={handleRefresh}
+          toggleNames={toggleNames}
+          showNames={showNames}
+          autoPlay={handleAutoplay}
+          isPlaying={isPlaying}
+        />
+
+        <Text mt={2} fontSize="18px" color="gray.500" textAlign="center">
+          Misses: {misses}
+        </Text>
+
+        {showMsg && (
+          <Text
+            mt={2}
+            className={`msg ${showMsg ? "active" : ""}`}
+            color={"blue.300"}
+            textAlign={"center"}
+            fontSize="30px"
+            fontWeight={"bold"}
+            border={showMsg ? "2px dashed" : "none"}
+            borderColor="blue"
+            animation={showMsg ? "rainbowDash 1.5s linear infinite" : "none"}
+            sx={{ padding: "5px", borderRadius: "8px" }}
+          >
+            Grade: {getGrade(misses)}
+          </Text>
+        )}
       </GridItem>
     </Grid>
   );
