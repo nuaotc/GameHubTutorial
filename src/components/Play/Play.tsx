@@ -38,12 +38,15 @@ function Play() {
   // retrive the note data stored in location state passed from other pages
   const location = useLocation();
   const { noteSequence = [], keySignature = "" } = location.state as {
-    noteSequence: string[];
+    noteSequence: { note: string; beat: number }[];
     keySignature: string;
   };
 
   // call audiopreload funcion and store preloaded audios in preloadedAudio
   const preloadedAudio = usePreloadAudioFiles();
+
+  // track previous audio
+  const lastPlayedAudio = useRef<HTMLAudioElement | null>(null);
 
   // tracks autoplay state toggles button play/stop
   const [isPlaying, setIsPlaying] = useState(false);
@@ -68,7 +71,6 @@ function Play() {
   const [showMsg, setShowMsg] = useState(false);
 
   // managing an interval timer with useRef to store the interval ID, for set length between each note play and reference each interval for clearing it
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // function handles click event of the hint switch
   const toggleNames = () => {
@@ -85,7 +87,7 @@ function Play() {
 
   // find the note in notes of the current note in the sequence by note index
   const currentNoteObj = notes.find((note) =>
-    note.name.includes(noteSequence[currentNoteIndex])
+    note.name.includes(noteSequence[currentNoteIndex].note)
   );
 
   // get the current note id and store in currentNote
@@ -98,7 +100,7 @@ function Play() {
     if (anIndex >= noteSequence.length) {
       return noteImagePlaceholder;
     }
-    const noteWithoutAccidental = noteSequence[anIndex]
+    const noteWithoutAccidental = noteSequence[anIndex].note
       .replace("#", "") // removes sharp
       .replace("b", ""); // Removes flat
     return noteImages[noteWithoutAccidental as keyof typeof noteImages];
@@ -117,6 +119,12 @@ function Play() {
 
   // function to play the note audio
   const playNote = (noteId: number) => {
+    // stop currently playing audio which is previous audio
+    if (lastPlayedAudio.current) {
+      lastPlayedAudio.current.pause();
+      lastPlayedAudio.current.currentTime = 0;
+    }
+
     // Access note's audio from preloaded audio by the note id
     const audio = preloadedAudio[noteId];
 
@@ -152,55 +160,53 @@ function Play() {
       setMisses(misses + 1); // Mark as incorrect
     }
   };
+  const timeouts = useRef<number[]>([]);
 
   // Function to stop the autoplay
   const stopAutoplay = () => {
-    // intervalRef is a reference that holds the ID of the interval returned by setInterval
-    // if an active interval exists, id will be passed to the clearInterval function to clear the interval which stops it execute at regular intervals
-    // set current interval to null means no longer have a reference to the cleared interval.
-    // it prevents any subsequent calls to this code from trying to clear an already cleared or non-existent interval.
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
-    }
+    timeouts.current.forEach((timeoutId) => clearTimeout(timeoutId));
+    timeouts.current = []; // Reset the timeouts array
 
-    // change the stop icon to play icon again on the button
+    // Reset the autoplay state
     setIsPlaying(false);
-
-    // reset the index to 0
     setCurrentNoteIndex(0);
   };
 
-  // Function to start the autoplay using setInterval
+  const baseTempo = 500; // Base tempo in milliseconds for a quarter note
+
   const startAutoplay = () => {
-    // Local index for autoplay
     let index = 0;
-
-    // setInterval is a built-in JavaScript function that repeatedly executes a function after a specified time delay
-    // setInterval returns an interval ID stored in intervalRef.current which can later be used to clear the interval
-    intervalRef.current = setInterval(() => {
-      // if local index less than the sequence length
-      if (index < noteSequence.length) {
-        // Update the current note index (autoplay starts the sequence from index 0, reset user's previous play index)
-        setCurrentNoteIndex(index);
-
-        // find the corresponding note in the notes
-        const currentNoteObj = notes.find((note) =>
-          note.name.includes(noteSequence[index])
-        );
-
-        // if found, play the note audio
-        if (currentNoteObj) {
-          playNote(currentNoteObj.id);
-        }
-
-        // increment local index by 1, move to the next note
-        index++;
-      } else {
-        // Stop autoplay once all notes are played
-        stopAutoplay();
+    setCurrentNoteIndex(index);
+    const playNextNote = () => {
+      if (index >= noteSequence.length) {
+        stopAutoplay(); // Stop when all notes are played
+        return;
       }
-    }, 500); // Set the delay of execution to 500 milliseconds meaning 0.5 seconds between notes
+
+      const { note: noteName, beat } = noteSequence[index];
+      const currentNoteObj = notes.find((note) => note.name.includes(noteName));
+
+      if (currentNoteObj) {
+        playNote(currentNoteObj.id);
+
+        // Calculate delay based on note's beat
+        const noteDelay = baseTempo * (4 / beat);
+
+        // Schedule next note with a timeout and store the timeout ID
+        const timeoutId = setTimeout(() => {
+          index++;
+          setCurrentNoteIndex(index);
+          playNextNote(); // Recursively call for next note
+        }, noteDelay);
+        timeouts.current.push(timeoutId); // Store the timeout ID
+      } else {
+        index++; // Skip if note not found
+        setCurrentNoteIndex(index);
+        playNextNote();
+      }
+    };
+
+    playNextNote(); // Start recursive playback
   };
 
   // Toggle autoplay when the button is clicked

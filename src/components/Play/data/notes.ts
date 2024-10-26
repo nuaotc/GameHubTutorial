@@ -4,34 +4,34 @@ export interface Note {
   file: string;
 }
 
-import noteAb1 from "../../../assets/audio/notes/01A1b.m4a";
-import noteA1 from "../../../assets/audio/notes/02A1.m4a";
-import noteBb1 from "../../../assets/audio/notes/03B1b.m4a";
-import noteB1 from "../../../assets/audio/notes/04B1.m4a";
-import noteC1 from "../../../assets/audio/notes/05C1.m4a";
-import noteDb1 from "../../../assets/audio/notes/06D1b.m4a";
-import noteD1 from "../../../assets/audio/notes/07D1.m4a";
-import noteEb1 from "../../../assets/audio/notes/08E1b.m4a";
-import noteE1 from "../../../assets/audio/notes/09E1.m4a";
-import noteF1 from "../../../assets/audio/notes/10F1.m4a";
-import noteGb1 from "../../../assets/audio/notes/11G1b.m4a";
-import noteG1 from "../../../assets/audio/notes/12G1.m4a";
-import noteAb2 from "../../../assets/audio/notes/13A2b.m4a";
-import noteA2 from "../../../assets/audio/notes/14A2.m4a";
-import noteBb2 from "../../../assets/audio/notes/15B2b.m4a";
-import noteB2 from "../../../assets/audio/notes/16B2.m4a";
-import noteC2 from "../../../assets/audio/notes/17C2.m4a";
-import noteDb2 from "../../../assets/audio/notes/18D2b.m4a";
-import noteD2 from "../../../assets/audio/notes/19D2.m4a";
-import noteEb2 from "../../../assets/audio/notes/20E2b.m4a";
-import noteE2 from "../../../assets/audio/notes/21E2.m4a";
-import noteF2 from "../../../assets/audio/notes/22F2.m4a";
-import noteGb2 from "../../../assets/audio/notes/23G2b.m4a";
-import noteG2 from "../../../assets/audio/notes/24G2.m4a";
-import noteAb3 from "../../../assets/audio/notes/25A3b.m4a";
-import noteA3 from "../../../assets/audio/notes/26A3.m4a";
-import noteBb3 from "../../../assets/audio/notes/27B3b.m4a";
-import noteB3 from "../../../assets/audio/notes/28B3.m4a";
+import noteAb1 from "../../../assets/audio/notes/01A1b.mp3";
+import noteA1 from "../../../assets/audio/notes/02A1.mp3";
+import noteBb1 from "../../../assets/audio/notes/03B1b.mp3";
+import noteB1 from "../../../assets/audio/notes/04B1.mp3";
+import noteC1 from "../../../assets/audio/notes/05C1.mp3";
+import noteDb1 from "../../../assets/audio/notes/06D1b.mp3";
+import noteD1 from "../../../assets/audio/notes/07D1.mp3";
+import noteEb1 from "../../../assets/audio/notes/08E1b.mp3";
+import noteE1 from "../../../assets/audio/notes/09E1.mp3";
+import noteF1 from "../../../assets/audio/notes/10F1.mp3";
+import noteGb1 from "../../../assets/audio/notes/11G1b.mp3";
+import noteG1 from "../../../assets/audio/notes/12G1.mp3";
+import noteAb2 from "../../../assets/audio/notes/13A2b.mp3";
+import noteA2 from "../../../assets/audio/notes/14A2.mp3";
+import noteBb2 from "../../../assets/audio/notes/15B2b.mp3";
+import noteB2 from "../../../assets/audio/notes/16B2.mp3";
+import noteC2 from "../../../assets/audio/notes/17C2.mp3";
+import noteDb2 from "../../../assets/audio/notes/18D2b.mp3";
+import noteD2 from "../../../assets/audio/notes/19D2.mp3";
+import noteEb2 from "../../../assets/audio/notes/20E2b.mp3";
+import noteE2 from "../../../assets/audio/notes/21E2.mp3";
+import noteF2 from "../../../assets/audio/notes/22F2.mp3";
+import noteGb2 from "../../../assets/audio/notes/23G2b.mp3";
+import noteG2 from "../../../assets/audio/notes/24G2.mp3";
+import noteAb3 from "../../../assets/audio/notes/25A3b.mp3";
+import noteA3 from "../../../assets/audio/notes/26A3.mp3";
+import noteBb3 from "../../../assets/audio/notes/27B3b.mp3";
+import noteB3 from "../../../assets/audio/notes/28B3.mp3";
 
 //two names for enharmonics : A minor and G sharp are the same note
 //when uploading new music, the only one version of the note name will be in the sequence which will be compared to get the note id
