@@ -28,7 +28,7 @@ export interface Music {
   genre: number;
   level: number;
   key: string;
-  notes: string[];
+  notes: { note: string; beat: number }[];
 }
 
 // The component takes a parameter of Music type
