@@ -27,6 +27,7 @@ export interface Music {
   composer: string;
   genre: number;
   level: number;
+  bpm: number;
   key: string;
   notes: { note: string; beat: number }[];
 }
@@ -60,7 +61,11 @@ const MusicCard = ({ music }: Props) => {
       <div className="image-container">
         <Link
           to={`/play`}
-          state={{ noteSequence: music.notes, keySignature: music.key }}
+          state={{
+            noteSequence: music.notes,
+            keySignature: music.key,
+            bpm: music.bpm,
+          }}
         >
           <img src={music.image} alt={music.name} className="image" />
           <div className="overlay">Play</div>

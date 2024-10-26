@@ -22,7 +22,7 @@ const MusicGrid = ({ musicQuery }: Props) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false); // Set loading to false after the delay
-    }, 2000);
+    }, 1000);
 
     const filteredData = musics
       // Filter by genre

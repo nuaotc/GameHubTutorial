@@ -28,6 +28,7 @@ const Home = () => {
           state={{
             noteSequence: tryMusic.notes,
             keySignature: tryMusic.key,
+            bpm: tryMusic.bpm,
           }}
         >
           <Button

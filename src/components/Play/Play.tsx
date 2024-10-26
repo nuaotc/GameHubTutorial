@@ -37,9 +37,14 @@ function Play() {
 
   // retrive the note data stored in location state passed from other pages
   const location = useLocation();
-  const { noteSequence = [], keySignature = "" } = location.state as {
+  const {
+    noteSequence = [],
+    keySignature = "",
+    bpm,
+  } = location.state as {
     noteSequence: { note: string; beat: number }[];
     keySignature: string;
+    bpm: number;
   };
 
   // call audiopreload funcion and store preloaded audios in preloadedAudio
@@ -132,6 +137,8 @@ function Play() {
     if (audio) {
       audio.currentTime = 0;
       audio.play();
+      // Update lastPlayedAudio to the current audio
+      lastPlayedAudio.current = audio;
     }
   };
 
@@ -172,7 +179,7 @@ function Play() {
     setCurrentNoteIndex(0);
   };
 
-  const baseTempo = 500; // Base tempo in milliseconds for a quarter note
+  const baseTempo = 60000 / bpm; // Base tempo in milliseconds for a quarter note
 
   const startAutoplay = () => {
     let index = 0;
