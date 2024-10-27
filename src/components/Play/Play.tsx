@@ -197,7 +197,7 @@ function Play() {
         playNote(currentNoteObj.id);
 
         // Calculate delay based on note's beat
-        const noteDelay = baseTempo * (4 / beat);
+        const noteDelay = baseTempo * beat;
 
         // Schedule next note with a timeout and store the timeout ID
         const timeoutId = setTimeout(() => {
