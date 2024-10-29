@@ -5,10 +5,12 @@ import { useEffect, useRef, useState } from "react";
 import { Note, notes } from "./data/notes";
 import noteImages from "./data/staves";
 import noteImagePlaceholder from "../../assets/staves/empty.png";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import endStaff from "../../assets/staves/empty_end.png";
 import "./Play.css";
 import { keys } from "./data/keys";
+import musics from "../Browse/data/musics";
+import { Music } from "../Browse/MusicCard";
 
 function Play() {
   // preload the audio object by its file string
@@ -35,17 +37,16 @@ function Play() {
     return audioFiles.current;
   };
 
-  // retrive the note data stored in location state passed from other pages
-  const location = useLocation();
-  const {
-    noteSequence = [],
-    keySignature = "",
-    bpm,
-  } = location.state as {
-    noteSequence: { note: string; beat: number }[];
-    keySignature: string;
-    bpm: number;
-  };
+  const { musicId } = useParams<{ musicId: string }>();
+  const musicObj: Music | undefined = musics.find(
+    (music) => music.id.toString() === musicId
+  );
+
+  if (!musicObj) {
+    return <Text>Music piece not found.</Text>;
+  }
+
+  const { noteSequence, keySignature, bpm } = musicObj;
 
   // call audiopreload funcion and store preloaded audios in preloadedAudio
   const preloadedAudio = usePreloadAudioFiles();

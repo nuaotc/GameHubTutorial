@@ -21,8 +21,8 @@ export default [
     genre: 1,
     level: 3,
     bpm: 140,
-    key: "amajor",
-    notes: [
+    keySignature: "amajor",
+    noteSequence: [
       { note: "A2", beat: 1.5 },
       { note: "E1", beat: 0.5 },
       { note: "A2", beat: 1.5 },
@@ -190,8 +190,8 @@ export default [
     genre: 1,
     level: 2,
     bpm: 130,
-    key: "aminor",
-    notes: [
+    keySignature: "aminor",
+    noteSequence: [
       { note: "E2", beat: 0.5 },
       { note: "D#2", beat: 0.5 },
       { note: "E2", beat: 0.5 },
@@ -241,8 +241,8 @@ export default [
     genre: 1,
     level: 3,
     bpm: 140,
-    key: "gmajor",
-    notes: [
+    keySignature: "gmajor",
+    noteSequence: [
       { note: "G1", beat: 1 },
       { note: "G1", beat: 0.5 },
       { note: "G1", beat: 0.5 },
@@ -354,8 +354,8 @@ export default [
     genre: 2,
     level: 2,
     bpm: 140,
-    key: "gmajor",
-    notes: [
+    keySignature: "gmajor",
+    noteSequence: [
       { note: "D1", beat: 0.5 },
       { note: "D1", beat: 1.5 },
       { note: "E1", beat: 1.5 },
@@ -448,8 +448,8 @@ export default [
     genre: 2,
     level: 2,
     bpm: 110,
-    key: "dminor",
-    notes: [
+    keySignature: "dminor",
+    noteSequence: [
       { note: "D1", beat: 0.5 },
       { note: "D1", beat: 0.5 },
       { note: "F1", beat: 0.5 },
@@ -591,8 +591,8 @@ export default [
     genre: 3,
     level: 2,
     bpm: 80,
-    key: "gmajor",
-    notes: [
+    keySignature: "gmajor",
+    noteSequence: [
       { note: "D1", beat: 0.25 },
       { note: "G1", beat: 0.25 },
       { note: "A2", beat: 0.25 },
@@ -844,8 +844,8 @@ export default [
     genre: 4,
     level: 2,
     bpm: 120,
-    key: "fmajor",
-    notes: [
+    keySignature: "fmajor",
+    noteSequence: [
       { note: "F1", beat: 0.5 },
       { note: "G1", beat: 0.5 },
       { note: "A2", beat: 0.5 },
@@ -1000,8 +1000,8 @@ export default [
     genre: 4,
     level: 3,
     bpm: 110,
-    key: "gminor",
-    notes: [
+    keySignature: "gminor",
+    noteSequence: [
       { note: "D1", beat: 0.5 },
       { note: "G1", beat: 0.75 },
       { note: "Bb2", beat: 0.25 },
@@ -1077,8 +1077,8 @@ export default [
     genre: 4,
     level: 2,
     bpm: 110,
-    key: "cminor",
-    notes: [
+    keySignature: "cminor",
+    noteSequence: [
       { note: "G1", beat: 0.5 },
       { note: "C2", beat: 0.5 },
       { note: "Eb2", beat: 0.5 },
@@ -1207,8 +1207,8 @@ export default [
     genre: 5,
     level: 1,
     bpm: 120,
-    key: "cmajor",
-    notes: [
+    keySignature: "cmajor",
+    noteSequence: [
       { note: "C1", beat: 1 },
       { note: "C1", beat: 1 },
       { note: "G1", beat: 1 },
@@ -1262,8 +1262,8 @@ export default [
     genre: 5,
     level: 1,
     bpm: 120,
-    key: "cmajor",
-    notes: [
+    keySignature: "cmajor",
+    noteSequence: [
       { note: "E1", beat: 1 },
       { note: "D1", beat: 1 },
       { note: "C1", beat: 1 },
@@ -1305,8 +1305,8 @@ export default [
     genre: 5,
     level: 1,
     bpm: 120,
-    key: "dmajor",
-    notes: [
+    keySignature: "dmajor",
+    noteSequence: [
       { note: "A2", beat: 0.5 },
       { note: "B2", beat: 0.5 },
       { note: "A2", beat: 0.5 },

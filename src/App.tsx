@@ -48,7 +48,7 @@ function App() {
       <GridItem area="main" marginTop="60px">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/play" element={<Play />} />
+          <Route path="/play/:musicId" element={<Play />} />
           <Route path="/browse" element={<Browse />} />
           <Route path="/contact" element={<ContactForm />} />
           <Route

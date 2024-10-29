@@ -28,8 +28,8 @@ export interface Music {
   genre: number;
   level: number;
   bpm: number;
-  key: string;
-  notes: { note: string; beat: number }[];
+  keySignature: string;
+  noteSequence: { note: string; beat: number }[];
 }
 
 // The component takes a parameter of Music type
@@ -59,14 +59,7 @@ const MusicCard = ({ music }: Props) => {
       borderWidth={{ base: "3px", md: "0px" }}
     >
       <div className="image-container">
-        <Link
-          to={`/play`}
-          state={{
-            noteSequence: music.notes,
-            keySignature: music.key,
-            bpm: music.bpm,
-          }}
-        >
+        <Link to={`/play/${music.id}`}>
           <img src={music.image} alt={music.name} className="image" />
           <div className="overlay">Play</div>
         </Link>

@@ -23,14 +23,7 @@ const Home = () => {
         alt="violin silhouette site image"
       />
       <HStack mt={10}>
-        <Link
-          to="/play"
-          state={{
-            noteSequence: tryMusic.notes,
-            keySignature: tryMusic.key,
-            bpm: tryMusic.bpm,
-          }}
-        >
+        <Link to={`/play/${tryMusic.id}`}>
           <Button
             backgroundColor={"blue.300"}
             color={"black"}
