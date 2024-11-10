@@ -583,7 +583,7 @@ export default [
     ],
   },
   {
-    id: 7,
+    id: 6,
     name: "Kiss the Rain",
     image: kisstherain,
     year: 2003,
@@ -836,7 +836,7 @@ export default [
   },
 
   {
-    id: 10,
+    id: 7,
     name: "Always with Me",
     image: alwayswithme,
     year: 2001,
@@ -992,7 +992,7 @@ export default [
     ],
   },
   {
-    id: 11,
+    id: 8,
     name: "Hedwig's Theme",
     image: hedwig,
     year: 2001,
@@ -1069,7 +1069,7 @@ export default [
     ],
   },
   {
-    id: 12,
+    id: 9,
     name: "Love Theme from The Godfather",
     image: godFather,
     year: 1972,
@@ -1199,7 +1199,7 @@ export default [
     ],
   },
   {
-    id: 13,
+    id: 10,
     name: "Twinkle, Twinkle, Little Star",
     image: twinkleStar,
     year: 1781,
@@ -1254,7 +1254,7 @@ export default [
     ],
   },
   {
-    id: 14,
+    id: 11,
     name: "Mary Had a Little Lamb",
     image: marryLamb,
     year: 1902,
@@ -1297,7 +1297,7 @@ export default [
     ],
   },
   {
-    id: 15,
+    id: 12,
     name: "London Bridge Is Falling Down",
     image: londonBridge,
     year: 1744,
